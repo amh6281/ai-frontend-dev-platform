@@ -120,7 +120,7 @@ allowed-tools: Bash(git *), Bash(gh *), Bash(jq *), Bash(sed *), Bash(awk *), Ba
 
 현재 GitHub 사용자를 확인한 뒤 아래를 수행한다. 이미 설정된 값은 덮어쓰지 않는다.
 
-1. `cursor-generated` 라벨이 없으면 생성 후 PR에 추가
+1. `agent-generated` 라벨이 없으면 생성 후 PR에 추가
 2. 현재 사용자를 assignee로 추가
 3. `.github/CODEOWNERS` 가 있으면 reviewer를 추출해 본인 제외 후 추가
 

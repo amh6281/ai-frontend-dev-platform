@@ -4,9 +4,9 @@ description: Analyze git changes, generate a commit and pull request following t
 
 # Automatic Pull Request Creation
 
-## Important Note (Cursor Security)
+## Important Note (Agent / Editor Approval)
 
-Cursor may require a manual **Run** approval for commands that modify the repo or access the network (e.g. `git push`, `gh pr create`). This command will therefore:
+Some agents or editors may require a manual **Run** approval for commands that modify the repo or access the network (e.g. `git push`, `gh pr create`). This command will therefore:
 
 - Generate the commit title + PR body
 - Execute the git/gh commands automatically (may still prompt for approval)
@@ -81,7 +81,7 @@ Example:
 Feat(TK-1325): 카드 삭제 버튼 추가  
 Fix(TK-210): 로그인 토큰 갱신 오류 수정  
 Refactor(TK-98): Zustand store 구조 정리  
-Chore(TK-450): Cursor rules skills 구조 추가
+Chore(TK-450): 에이전트 규칙 구조 추가
 
 ---
 
