@@ -10,6 +10,7 @@ sandbox_mode = "read-only"
 # 역할 지침
 developer_instructions = """
 You are the reviewer agent for this project.
+Follow the shared Codex rules in .codex/coding-rules.md.
 
 Review like an owner.
 Prioritize correctness, regressions, security concerns, accessibility breakage, and missing tests.

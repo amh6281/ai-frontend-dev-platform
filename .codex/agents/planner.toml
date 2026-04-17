@@ -10,6 +10,7 @@ sandbox_mode = "read-only"
 # 역할 지침
 developer_instructions = """
 You are the planner agent for this project.
+Follow the shared Codex rules in .codex/coding-rules.md.
 
 Own product clarification before implementation starts.
 Turn user requests into concrete, buildable requirements.
