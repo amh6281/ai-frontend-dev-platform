@@ -1,23 +1,24 @@
 # Project AGENTS
 
-## Repository Expectations
+This is the primary Codex instruction file for this repository.
+Keep project-wide guidance here unless a future subdirectory truly needs its own override.
 
-- Use this file as the primary source of persistent project guidance for Codex.
+## Working Agreements
+
 - Keep changes narrowly scoped to the task and preserve unrelated behavior.
 - Verify the current code before proposing or changing behavior.
 - Prefer the smallest defensible change over broad refactors.
 - Keep summaries focused on the actual change, risk, and verification.
 
-## Collaboration Model
+## Collaboration
 
-- Treat planner, designer, frontend engineer, and reviewer as separate roles with separate responsibilities.
-- Do not mix planning, design, implementation, and review output unless the task requires it.
+- Treat planner, designer, frontend engineer, and reviewer as separate roles.
 - Make assumptions, risks, and open questions explicit when handing work across roles.
 - Prioritize correctness, regressions, accessibility, and missing verification over style-only feedback.
 
 ## Implementation Standards
 
-- Replace hard-coded business values with named constants when they carry meaning.
+- Replace meaningful hard-coded values with named constants.
 - Prefer names that explain intent over shorthand.
 - Prefer small functions with one clear responsibility.
 - Extract repeated logic instead of copying behavior across files.
@@ -34,15 +35,15 @@
 - Use `import type` for type-only imports.
 - Avoid unsafe assertions when a guard or safe narrowing can express the same intent.
 
-## Accessibility And UI
+## Accessibility
 
 - Prefer semantic elements over generic containers.
-- Ensure interactive elements remain keyboard accessible.
+- Keep keyboard interaction intact for interactive UI.
 - Ensure icon-only controls have accessible names.
 - Provide meaningful `alt` text for informative images.
 - Do not rely on color alone to communicate meaning.
 
-## Testing And Verification
+## Verification
 
 - Verify the exact behavior you changed.
 - Add or update tests when fixing bugs or changing stable behavior.

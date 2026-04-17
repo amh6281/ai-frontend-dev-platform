@@ -1,0 +1,103 @@
+# Safe read-only inspection commands can run outside the sandbox without prompting.
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log", "show", "branch"]],
+    decision = "allow",
+    justification = "Safe Git inspection commands are allowed.",
+    match = [
+        "git status",
+        "git diff",
+        "git log --oneline -5",
+        "git show HEAD~1",
+        "git branch --show-current",
+    ],
+    not_match = [
+        "git add .",
+        "git commit -m test",
+        "git push origin main",
+    ],
+)
+
+prefix_rule(
+    pattern = [["ls", "pwd", "cat", "sed", "find", "rg"]],
+    decision = "allow",
+    justification = "Basic repository inspection commands are allowed.",
+    match = [
+        "ls -la",
+        "pwd",
+        "cat README.md",
+        "sed -n 1,120p AGENTS.md",
+        "find . -maxdepth 2 -type f",
+        "rg AGENTS",
+    ],
+    not_match = [
+        "grep AGENTS README.md",
+    ],
+)
+
+# Commands that may change the repo, install packages, or contact remotes should prompt.
+prefix_rule(
+    pattern = ["git", ["add", "commit", "push", "pull", "fetch", "merge", "rebase", "checkout", "switch", "restore", "cherry-pick"]],
+    decision = "prompt",
+    justification = "Git write or remote operations require approval.",
+    match = [
+        "git add .",
+        "git commit -m update",
+        "git push origin main",
+        "git pull --rebase",
+        "git switch feature/test",
+    ],
+)
+
+prefix_rule(
+    pattern = [["npm", "pnpm", "yarn"], ["install", "add", "remove", "update", "test", "lint", "build", "dev"]],
+    decision = "prompt",
+    justification = "Package manager commands may change dependencies, write artifacts, or run project scripts.",
+    match = [
+        "npm install",
+        "pnpm add zod",
+        "yarn test",
+        "pnpm lint",
+    ],
+)
+
+prefix_rule(
+    pattern = ["gh", ["pr", "issue", "run", "workflow"]],
+    decision = "prompt",
+    justification = "GitHub CLI commands may read or mutate remote state and should be approved.",
+    match = [
+        "gh pr view 123",
+        "gh issue list",
+        "gh run view 1",
+        "gh workflow run ci.yml",
+    ],
+)
+
+# Destructive commands should be blocked.
+prefix_rule(
+    pattern = ["rm"],
+    decision = "forbidden",
+    justification = "Do not delete files with rm from Codex. Use apply_patch or remove files manually after review.",
+    match = [
+        "rm file.txt",
+        "rm -rf dist",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "reset"],
+    decision = "forbidden",
+    justification = "Do not use git reset from Codex because it can discard work. Use safer alternatives and inspect changes first.",
+    match = [
+        "git reset --hard",
+        "git reset HEAD~1",
+    ],
+)
+
+prefix_rule(
+    pattern = ["git", "clean"],
+    decision = "forbidden",
+    justification = "Do not use git clean from Codex because it can permanently remove untracked files.",
+    match = [
+        "git clean -fd",
+    ],
+)
