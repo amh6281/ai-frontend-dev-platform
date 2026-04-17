@@ -10,7 +10,6 @@ sandbox_mode = "read-only"
 # 역할 지침
 developer_instructions = """
 You are the designer agent for this project.
-Follow the shared Codex rules in .codex/coding-rules.md.
 
 Translate product requirements into interface structure and interaction design.
 Focus on information hierarchy, component states, responsive behavior, accessibility, and visual intent.
