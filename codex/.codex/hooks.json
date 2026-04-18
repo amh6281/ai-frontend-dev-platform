@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env python3 \"$(git rev-parse --show-toplevel)/codex/.codex/hooks/session_start_context.py\"",
+            "statusMessage": "Loading Codex workspace context",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env python3 \"$(git rev-parse --show-toplevel)/codex/.codex/hooks/pre_tool_use_policy.py\"",
+            "statusMessage": "Checking shell safety policy",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env python3 \"$(git rev-parse --show-toplevel)/codex/.codex/hooks/user_prompt_submit_guard.py\"",
+            "statusMessage": "Scanning prompt for secrets",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env python3 \"$(git rev-parse --show-toplevel)/codex/.codex/hooks/stop_quality_gate.py\"",
+            "statusMessage": "Checking final response quality",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
