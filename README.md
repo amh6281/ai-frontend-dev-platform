@@ -70,11 +70,11 @@ codex/
 - `codex/.agents/skills/`: repo-local Codex skill 위치
 - `codex/.codex/config.toml`: Codex 공통 설정과 fallback filename 설정
 - `codex/.codex/hooks.json`: Codex hook 연결 설정
-- `codex/.codex/agents/*.toml`: 역할별 서브에이전트 정의
+- `codex/.codex/agents/*.toml`: 역할별 custom agent 정의
 - `codex/.codex/rules/default.rules`: 기본 규칙
 
 즉, Codex 관점에서는 저장소 루트가 아니라 `codex/`가 실질적인 프로젝트 루트처럼 동작합니다.
-세부적인 hooks, agents, rules 설정은 `codex/.codex` 안에서 찾도록 구성되어 있습니다.
+세부적인 hooks, custom agents, rules 설정은 `codex/.codex` 안에서 찾도록 구성되어 있습니다.
 
 ## Cursor
 

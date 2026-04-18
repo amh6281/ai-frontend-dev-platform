@@ -38,7 +38,7 @@ codex/
 - `.codex/config.toml`: Codex 공통 설정
 - `.codex/hooks.json`: Codex lifecycle hook 설정
 - `.codex/hooks/*.py`: hook event에 연결된 실행 스크립트
-- `.codex/agents/*.toml`: 역할별 서브에이전트 정의
+- `.codex/agents/*.toml`: 역할별 custom agent 정의
 - `.codex/rules/default.rules`: 기본 규칙
 - `.codex/coding-rules.md`: 레거시 참고 문서
 
@@ -79,6 +79,69 @@ Codex를 `codex/` 작업 공간 기준으로 시작하면 이 파일이 기본 i
 - Codex 공통 규칙은 `codex/AGENTS.md`에 둡니다.
 - Codex 전용 상세 설정은 `.codex/` 아래에 둡니다.
 - 더 세분화된 팀 규칙이 필요하면 `codex/` 하위 디렉터리에 `AGENTS.md` 또는 `AGENTS.override.md`를 추가해 레이어를 늘릴 수 있습니다.
+
+## Subagents
+
+Codex는 subagent workflow를 통해 여러 작업을 병렬로 나눠 실행할 수 있습니다.
+이 작업 공간에서는 `.codex/agents/*.toml` 파일을 사용해 custom agent를 정의하고, 필요할 때 명시적으로 spawn해서 사용합니다.
+
+### 현재 기준
+
+- global subagent 설정: `.codex/config.toml`의 `[agents]`
+- project-scoped custom agents: `.codex/agents/*.toml`
+- 현재 정의된 custom agents: `planner`, `designer`, `frontend_engineer`, `reviewer`
+
+### 어떻게 동작하나
+
+- Codex는 사용자가 명시적으로 요청할 때만 subagent를 spawn합니다.
+- 즉, 일반 요청만으로 항상 자동 분기되는 구조는 아니고, "agent를 나눠서 진행해줘" 같은 요청이 있어야 병렬 orchestration이 일어납니다.
+- parent agent가 subagent를 띄우고, 후속 지시를 보내고, 결과를 수집해 최종 응답으로 통합합니다.
+
+### 사용법
+
+- 여러 관점을 병렬로 보고 싶을 때 역할별 agent를 명시해서 요청합니다.
+- 예를 들어 기획, 디자인, 구현, 리뷰를 나눠서 진행하고 싶을 때 각 agent를 순서대로 또는 병렬로 지정할 수 있습니다.
+
+예시:
+
+- `planner로 요구사항을 정리하고 designer로 UI 방향을 만든 뒤 frontend_engineer로 구현해줘`
+- `reviewer를 따로 spawn해서 현재 변경점의 회귀 위험만 점검해줘`
+- `planner, designer, reviewer를 각각 병렬로 돌리고 결과를 통합해줘`
+
+### 현재 설정과의 연결
+
+- `.codex/config.toml`의 `agents.max_threads = 6`은 동시에 열 수 있는 agent thread 수 상한입니다.
+- `.codex/config.toml`의 `agents.max_depth = 1`은 direct child까지 허용하고 더 깊은 재귀 fan-out은 막는 설정입니다.
+- 현재 설정은 병렬 작업은 허용하되, 과도한 중첩 delegation은 제한하는 보수적인 기본값입니다.
+
+### Custom agent 파일 기준
+
+현재 `.codex/agents/*.toml` 파일은 공식 문서 기준의 핵심 필드를 사용합니다.
+
+- `name`
+- `description`
+- `developer_instructions`
+
+필요하면 아래 같은 추가 필드도 함께 둘 수 있습니다.
+
+- `nickname_candidates`
+- `model`
+- `model_reasoning_effort`
+- `sandbox_mode`
+
+### 현재 agent 역할
+
+- `planner`: 요구사항, 범위, 사용자 흐름, 열린 질문 정리
+- `designer`: 레이아웃, 상태, 인터랙션, 시각 방향 정리
+- `frontend_engineer`: 구현 계획과 실제 코드 변경 담당
+- `reviewer`: 정확성, 회귀, 검증 누락 중심 리뷰
+
+### 운영 메모
+
+- subagent는 token과 tool 사용량이 추가되므로 항상 필요한 경우에만 쓰는 편이 좋습니다.
+- child agent는 parent의 sandbox와 approval 성격을 이어받습니다.
+- `max_depth`를 크게 올리면 fan-out이 과해질 수 있어 현재처럼 `1`을 유지하는 편이 안정적입니다.
+- 같은 이름의 built-in agent보다 같은 이름의 custom agent가 우선할 수 있습니다.
 
 ## Skills
 
