@@ -1,120 +1,89 @@
 # ai-frontend-dev-platform
 
-AI 에이전트별 작업 규칙과 실행 문서를 한 저장소에서 관리하는 플랫폼입니다.
-이제 숨김 설정 폴더를 저장소 루트에 두지 않고, 각 도구 전용 작업 루트 안으로 옮겼습니다.
+![Codex](https://img.shields.io/badge/Codex-supported-black) ![Cursor](https://img.shields.io/badge/Cursor-supported-black)
 
-## 현재 구조
+AI 에이전트별 작업 규칙과 실행 문서를 한 저장소에서 관리하는 플랫폼입니다.  
+각 도구는 자신의 작업 루트 안에서만 설정을 찾으며, 서로의 규칙에 영향을 주지 않습니다.
 
-```txt
+> Codex를 쓴다면 `codex/`만 보면 됩니다. Cursor를 쓴다면 `cursor/`만 보면 됩니다.
+
+---
+
+## 왜 이런 구조인가
+
+Codex와 Cursor는 각각 저장소 루트에서 설정 파일을 탐색합니다. 두 도구를 같은 저장소에서 함께 쓰면 서로의 설정이 충돌하거나 의도치 않게 읽힐 수 있습니다. 이 저장소는 각 도구의 작업 루트를 분리해 이 문제를 해결합니다.
+
+- 저장소 루트는 전체 개요 전용 — 도구별 설정을 두지 않습니다
+- 각 도구는 자신의 하위 디렉터리를 프로젝트 루트처럼 사용합니다
+- 도구를 추가할 때 다른 디렉터리를 건드리지 않아도 됩니다
+
+---
+
+## 저장소 구조
+
+```
 .
 ├── README.md
-├── codex/
+├── codex/          ← Codex 작업 루트
 │   ├── AGENTS.md
 │   ├── AGENTS.kr.md
 │   ├── .agents/
+│   │   └── skills/
 │   └── .codex/
-└── cursor/
+│       ├── config.toml
+│       ├── hooks.json
+│       ├── hooks/
+│       ├── coding-rules.md
+│       ├── rules/
+│       └── agents/
+│           ├── designer.toml
+│           ├── frontend-engineer.toml
+│           ├── planner.toml
+│           └── reviewer.toml
+└── cursor/         ← Cursor 작업 루트
     └── .cursor/
+        ├── commands/
+        └── rules/
 ```
 
-- `codex/`는 Codex가 작업할 때 기준이 되는 루트입니다.
-- `cursor/`는 Cursor가 작업할 때 기준이 되는 루트입니다.
-- 각 도구는 자신의 작업 루트 안에 있는 숨김 설정 폴더를 기준으로 필요한 문서를 찾습니다.
-- Codex와 Cursor 모두 저장소 최상단이 아니라 각자의 작업 루트 안에서 instruction과 설정이 닫히도록 구성합니다.
+---
 
-## Codex
+## 각 도구 안내
 
-Codex 관련 문서는 `codex/` 아래에 모여 있습니다.
+### Codex
 
-### Codex가 보는 기준 경로
+| 경로 | 역할 |
+|------|------|
+| `codex/AGENTS.md` | Codex 작업 기본 규칙 (영문, 에이전트가 읽음) |
+| `codex/AGENTS.kr.md` | 사람이 읽는 한국어 참고본 |
+| `codex/.agents/skills/` | 저장소 로컬 Codex skill |
+| `codex/.codex/config.toml` | 공통 설정 및 fallback 파일명 지정 |
+| `codex/.codex/hooks.json` | hook 연결 설정 |
+| `codex/.codex/agents/*.toml` | 역할별 custom agent 정의 |
+| `codex/.codex/rules/default.rules` | 기본 규칙 |
 
-- 작업 루트: `codex/`
-- 기본 instruction 문서: `codex/AGENTS.md`
-- 한국어 참고 문서: `codex/AGENTS.kr.md`
-- repo-local skills: `codex/.agents/skills/`
-- 추가 설정 및 에이전트 정의: `codex/.codex/`
+같은 디렉터리에 `AGENTS.override.md`가 있으면 `AGENTS.md`보다 우선합니다.  
+대체 파일명(`TEAM_GUIDE.md` 등)은 `config.toml`의 fallback 설정이 있을 때만 동작합니다.
 
-### AGENTS.md 로딩 방식
+### Cursor
 
-- 이 프로젝트에서는 `codex/` 디렉터리 자체를 Codex 루트처럼 운영합니다.
-- 따라서 Codex 관련 instruction discovery도 `codex/` 작업 루트 기준으로 설명합니다.
-- 같은 디렉터리에 `AGENTS.override.md`가 있으면 일반 `AGENTS.md`보다 우선합니다.
-- `TEAM_GUIDE.md`, `.agents.md` 같은 대체 파일명은 `codex/.codex/config.toml`의 fallback 설정이 있을 때만 사용됩니다.
+| 경로 | 역할 |
+|------|------|
+| `cursor/.cursor/commands/*.md` | commit, review, refactor 등 command 문서 |
+| `cursor/.cursor/rules/code-quality.mdc` | 코드 품질 규칙 |
+| `cursor/.cursor/rules/typescript.mdc` | TypeScript 규칙 |
 
-### 구조
-
-```txt
-codex/
-├── AGENTS.md
-├── AGENTS.kr.md
-├── .agents/
-│   └── skills/
-└── .codex/
-    ├── config.toml
-    ├── hooks.json
-    ├── hooks/
-    ├── coding-rules.md
-    ├── rules/
-    │   └── default.rules
-    └── agents/
-        ├── designer.toml
-        ├── frontend-engineer.toml
-        ├── planner.toml
-        └── reviewer.toml
-```
-
-### 역할
-
-- `codex/AGENTS.md`: Codex 작업 공간 기본 규칙
-- `codex/AGENTS.kr.md`: 사람이 읽기 위한 한국어 참고본
-- `codex/.agents/skills/`: repo-local Codex skill 위치
-- `codex/.codex/config.toml`: Codex 공통 설정과 fallback filename 설정
-- `codex/.codex/hooks.json`: Codex hook 연결 설정
-- `codex/.codex/agents/*.toml`: 역할별 custom agent 정의
-- `codex/.codex/rules/default.rules`: 기본 규칙
-
-즉, Codex 관점에서는 저장소 루트가 아니라 `codex/`가 실질적인 프로젝트 루트처럼 동작합니다.
-세부적인 hooks, custom agents, rules 설정은 `codex/.codex` 안에서 찾도록 구성되어 있습니다.
-
-## Cursor
-
-Cursor 관련 문서는 `cursor/` 아래에 모여 있습니다.
-
-### Cursor가 보는 기준 경로
-
-- 작업 루트: `cursor/`
-- commands: `cursor/.cursor/commands/`
-- rules: `cursor/.cursor/rules/`
-
-### 구조
-
-```txt
-cursor/
-└── .cursor/
-    ├── commands/
-    │   ├── commit.md
-    │   ├── create-pr.md
-    │   ├── create-pr-kr.md
-    │   ├── refactor.md
-    │   ├── review.md
-    │   ├── sync-pr.md
-    │   └── verify.md
-    └── rules/
-        ├── code-quality.mdc
-        └── typescript.mdc
-```
-
-### 역할
-
-- `.cursor/commands/*.md`: Cursor command 문서
-- `.cursor/rules/*.mdc`: Cursor rule 문서
-
-Cursor도 동일하게 저장소 루트가 아니라 `cursor/`를 자기 작업 루트처럼 사용하고,
-필요한 설정은 `cursor/.cursor` 안에서 찾는 구조입니다.
+---
 
 ## 운영 원칙
 
-- 저장소 루트는 전체 개요를 설명하는 공간입니다.
-- Codex 전용 규칙은 `codex/` 아래에서 관리합니다.
-- Cursor 전용 규칙은 `cursor/` 아래에서 관리합니다.
-- 도구별 설정을 섞지 않고, 각 작업 루트 안에서 독립적으로 유지합니다.
+- 저장소 루트에는 도구별 설정 파일을 두지 않습니다
+- 새 도구를 추가할 때는 동일한 패턴으로 최상위에 디렉터리를 만들고 그 안에서 독립적으로 구성합니다
+- Codex 규칙과 Cursor 규칙은 서로를 참조하지 않습니다
+
+---
+
+## 기여
+
+규칙이나 설정을 수정할 때는 해당 도구의 작업 루트 안에서만 변경하세요.  
+저장소 루트나 다른 도구의 디렉터리는 건드리지 않아도 됩니다.
