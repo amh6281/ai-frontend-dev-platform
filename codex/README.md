@@ -10,6 +10,8 @@ codex/
 ├── README.md
 ├── AGENTS.md
 ├── AGENTS.kr.md
+├── .agents/
+│   └── skills/
 └── .codex/
     ├── config.toml
     ├── hooks.json
@@ -32,6 +34,7 @@ codex/
 
 - `AGENTS.md`: Codex가 실제로 참조하는 기본 작업 규칙
 - `AGENTS.kr.md`: 사람이 읽기 위한 한국어 참고 문서
+- `.agents/skills/`: repo-local Codex skill 위치
 - `.codex/config.toml`: Codex 공통 설정
 - `.codex/hooks.json`: Codex lifecycle hook 설정
 - `.codex/hooks/*.py`: hook event에 연결된 실행 스크립트
@@ -76,6 +79,108 @@ Codex를 `codex/` 작업 공간 기준으로 시작하면 이 파일이 기본 i
 - Codex 공통 규칙은 `codex/AGENTS.md`에 둡니다.
 - Codex 전용 상세 설정은 `.codex/` 아래에 둡니다.
 - 더 세분화된 팀 규칙이 필요하면 `codex/` 하위 디렉터리에 `AGENTS.md` 또는 `AGENTS.override.md`를 추가해 레이어를 늘릴 수 있습니다.
+
+## Skills
+
+Codex skills는 재사용 가능한 작업 단위를 패키징하는 방식입니다.
+하나의 skill은 `SKILL.md`를 중심으로 instructions, references, scripts, assets를 묶어서 특정 작업을 더 안정적으로 수행하게 합니다.
+
+### 현재 기준
+
+- repo-local skill 위치: `.agents/skills/`
+- 이 저장소에서는 `codex/`가 Codex 작업 루트이므로, skill discovery도 `codex/.agents/skills` 기준으로 설명합니다.
+- 현재 샘플 custom skill로 `workspace-doc-sync`를 추가해 두었습니다.
+
+### 어떻게 호출되나
+
+Codex skill은 두 가지 방식으로 활성화될 수 있습니다.
+
+- 명시 호출: 프롬프트에서 `$skill-name` 형태로 직접 언급합니다.
+- 암시 호출: 사용자의 요청이 skill description과 잘 맞으면 Codex가 자동으로 선택할 수 있습니다.
+
+즉, hooks처럼 lifecycle 이벤트에 자동 연결되는 구조와는 다르고,
+skill은 필요할 때 직접 `$skill-name`으로 부르거나 설명 매칭을 통해 선택되는 방식입니다.
+
+### 사용법
+
+- 특정 skill을 확실히 쓰고 싶으면 프롬프트에 `$skill-name`을 직접 넣습니다.
+- CLI나 IDE에서는 `/skills`로 사용 가능한 skill 목록을 확인한 뒤 선택할 수 있습니다.
+- 단순히 일반 요청을 보내도, description이 충분히 명확하면 Codex가 skill을 암시적으로 선택할 수 있습니다.
+
+예시:
+
+- `$skill-name 이 작업을 처리해줘`
+- `$skill-name 을 사용해서 이 API 문서를 정리해줘`
+- `/skills`로 목록 확인 후 원하는 skill 선택
+
+### 폴더 구조
+
+공식 권장 구조는 아래와 같습니다.
+
+```txt
+.agents/
+└── skills/
+    └── my-skill/
+        ├── SKILL.md
+        ├── SKILL.kr.md
+        ├── agents/
+        │   └── openai.yaml
+        ├── scripts/
+        ├── references/
+        └── assets/
+```
+
+`agents/openai.yaml`은 skill UI 메타데이터를 담는 파일입니다.
+예를 들어 skill 목록에 보이는 이름, 짧은 설명, 기본 프롬프트, implicit invocation 정책 같은 값을 정의할 수 있습니다.
+반면 실제 skill trigger와 instruction 본문은 `SKILL.md`가 담당합니다.
+
+### SKILL.md 최소 형태
+
+`SKILL.md`에는 YAML frontmatter로 `name`과 `description`이 반드시 있어야 합니다.
+Codex는 이 metadata를 먼저 읽고, 실제 사용이 필요할 때만 본문을 로드합니다.
+
+예시:
+
+```md
+---
+name: my-skill
+description: Explain exactly when this skill should and should not trigger.
+---
+
+Skill instructions for Codex to follow.
+```
+
+`SKILL.kr.md` 같은 한국어 참고 문서는 사람이 읽기 위한 보조 문서로 둘 수 있습니다.
+다만 skill trigger와 실제 instruction 로딩은 `SKILL.md`를 기준으로 동작합니다.
+
+### 어디에 두면 되나
+
+- 현재 작업 루트 기준 repo-local skill: `codex/.agents/skills/`
+- 사용자 전역 skill: `$HOME/.agents/skills`
+- 시스템 기본 skill: Codex 내장 skill
+
+이 프로젝트에서는 이력서용 또는 포트폴리오용으로 repo-local skill을 함께 체크인하는 방식이 가장 설명하기 좋습니다.
+
+### 만들 때 기준
+
+- 한 skill은 한 가지 작업에 집중합니다.
+- 설명은 trigger 조건이 분명해야 합니다.
+- 반복 구현이 많을 때만 `scripts/`를 넣고, 그렇지 않으면 instruction-only skill이 기본입니다.
+- 상세 레퍼런스는 `references/`로 분리해 SKILL 본문을 가볍게 유지합니다.
+
+### 운영 메모
+
+- skill metadata는 항상 먼저 노출되고, 본문은 실제로 사용할 때만 로드됩니다.
+- 같은 이름의 skill이 여러 위치에 있으면 merge되지 않고 각각 별도로 보일 수 있습니다.
+- skill 변경 사항이 바로 안 보이면 Codex를 재시작하는 편이 안전합니다.
+- 특정 skill을 끄고 싶으면 `~/.codex/config.toml`의 `[[skills.config]]`로 비활성화할 수 있습니다.
+
+### 샘플 skill
+
+- `workspace-doc-sync`: 작업 루트 구조 변경 후 `README`, `AGENTS`, hooks, skills 관련 문서를 실제 폴더 구조와 맞추는 instruction-only skill입니다.
+- `workspace-doc-sync/SKILL.kr.md`: 사람이 읽기 쉬운 한국어 참고본입니다.
+- `workspace-doc-sync/agents/openai.yaml`: UI에서 보이는 skill 이름, 설명, 기본 프롬프트를 정의합니다.
+- 명시 호출 예시: `$workspace-doc-sync 문서 구조를 현재 폴더 기준으로 다시 맞춰줘`
 
 ## Hooks
 

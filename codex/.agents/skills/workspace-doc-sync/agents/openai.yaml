@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workspace Doc Sync"
+  short_description: "Keep workspace docs aligned with folder changes"
+  default_prompt: "Use $workspace-doc-sync to update README and AGENTS files after a workspace structure change."
