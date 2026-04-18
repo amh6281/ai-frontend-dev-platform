@@ -1,7 +1,13 @@
-# Project AGENTS
+# Codex Workspace AGENTS
 
-This is the primary Codex instruction file for this repository.
-Keep project-wide guidance here unless a future subdirectory truly needs its own override.
+This file defines Codex-specific guidance for the `codex/` workspace.
+When Codex starts inside `codex/`, treat this directory as the effective project root for instruction discovery.
+
+## Discovery Notes
+
+- Expected instruction chain for this workspace: `/codex/AGENTS.md`
+- If a future `AGENTS.override.md` exists inside `codex/`, it takes precedence over this file.
+- Fallback filenames are configured in `.codex/config.toml` and only apply when `AGENTS.override.md` and `AGENTS.md` are absent inside this workspace root.
 
 ## Working Agreements
 
@@ -9,6 +15,7 @@ Keep project-wide guidance here unless a future subdirectory truly needs its own
 - Verify the current code before proposing or changing behavior.
 - Prefer the smallest defensible change over broad refactors.
 - Keep summaries focused on the actual change, risk, and verification.
+- Treat `codex/` as the active workspace root when resolving local documentation and config paths.
 
 ## Collaboration
 
@@ -49,3 +56,4 @@ Keep project-wide guidance here unless a future subdirectory truly needs its own
 - Add or update tests when fixing bugs or changing stable behavior.
 - Prefer readable tests that cover edge cases and failure paths.
 - Do not claim behavior is verified unless it was actually checked.
+- Mention the changed file paths or key artifacts in the final response.

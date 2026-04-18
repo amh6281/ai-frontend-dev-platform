@@ -42,9 +42,40 @@ codex/
 ## 사용 기준
 
 - Codex는 이 폴더를 하나의 작업 루트처럼 사용합니다.
-- 공통 작업 원칙은 `AGENTS.md`를 기준으로 읽습니다.
+- 공통 작업 원칙은 이 폴더의 `AGENTS.md`를 기준으로 읽습니다.
 - 추가 설정이 필요하면 `.codex/` 안에서 찾습니다.
 - 역할별 에이전트 동작은 `.codex/agents/` 아래 파일로 관리합니다.
+
+## AGENTS.md Discovery
+
+Codex는 작업을 시작하기 전에 `AGENTS.md` 체인을 구성합니다.
+이 작업 공간에서는 공식 discovery 규칙에 따라 상위 디렉터리에서 현재 디렉터리까지 순서대로 문서를 읽습니다.
+
+### 현재 프로젝트에서의 로드 순서
+
+1. `codex/AGENTS.md`
+
+Codex를 `codex/` 작업 공간 기준으로 시작하면 이 파일이 기본 instruction chain이 됩니다.
+즉, 이 프로젝트에서는 저장소 최상단이 아니라 `codex/` 디렉터리 자체를 Codex 루트처럼 운영합니다.
+
+### 우선순위 규칙
+
+- 현재 작업 루트인 `codex/`에서는 `AGENTS.override.md`를 먼저 찾습니다.
+- override가 없으면 `AGENTS.md`를 찾습니다.
+- 둘 다 없을 때만 `project_doc_fallback_filenames`에 있는 대체 파일명을 확인합니다.
+- 같은 디렉터리에서는 최대 한 개의 instruction 파일만 사용됩니다.
+
+### 현재 설정과의 연결
+
+- `.codex/config.toml`의 `project_doc_fallback_filenames = ["TEAM_GUIDE.md", ".agents.md"]`가 fallback 이름을 정의합니다.
+- `.codex/config.toml`의 `project_doc_max_bytes = 65536`가 instruction chain 최대 크기를 늘립니다.
+- 현재 `codex/` 작업 공간에서는 `AGENTS.md`가 존재하므로 fallback 파일명은 기본적으로 사용되지 않습니다.
+
+### 운영 팁
+
+- Codex 공통 규칙은 `codex/AGENTS.md`에 둡니다.
+- Codex 전용 상세 설정은 `.codex/` 아래에 둡니다.
+- 더 세분화된 팀 규칙이 필요하면 `codex/` 하위 디렉터리에 `AGENTS.md` 또는 `AGENTS.override.md`를 추가해 레이어를 늘릴 수 있습니다.
 
 ## Hooks
 

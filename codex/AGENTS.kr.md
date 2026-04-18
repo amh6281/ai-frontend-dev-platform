@@ -4,9 +4,16 @@
 Codex의 실제 instruction discovery에는 사용되지 않습니다.
 실제 적용되는 규칙은 같은 위치의 `AGENTS.md`를 기준으로 합니다.
 
+## 로딩 방식
+
+- 이 작업 공간에서는 `codex/` 디렉터리 자체를 Codex 루트처럼 취급합니다.
+- 따라서 기본적으로 `codex/AGENTS.md`를 기준으로 instruction discovery가 이뤄집니다.
+- 같은 디렉터리에 `AGENTS.override.md`가 있으면 일반 `AGENTS.md`보다 우선합니다.
+- 대체 파일명은 `.codex/config.toml`의 `project_doc_fallback_filenames` 설정을 따릅니다.
+
 ## 기본 원칙
 
-- 이 저장소의 Codex 공통 규칙은 루트 `AGENTS.md` 하나를 기준으로 관리합니다.
+- 이 작업 공간의 Codex 규칙은 `codex/AGENTS.md`를 기준으로 관리합니다.
 - 변경 범위는 가능한 한 작업에 필요한 최소 수준으로 유지합니다.
 - 동작을 바꾸기 전에 현재 코드를 먼저 확인합니다.
 - 큰 리팩터링보다 방어 가능한 가장 작은 변경을 우선합니다.
