@@ -19,7 +19,9 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 
 ## Collaboration
 
-- Treat planner, designer, frontend engineer, and reviewer as separate roles.
+- Treat planner, designer, code mapper, frontend engineer, docs researcher, and reviewer as separate roles.
+- Use `code_mapper` for read-heavy code path discovery before implementation when the ownership or execution path is unclear.
+- Use `docs_researcher` when framework or API behavior should be verified against official documentation before changing code.
 - Make assumptions, risks, and open questions explicit when handing work across roles.
 - Prioritize correctness, regressions, accessibility, and missing verification over style-only feedback.
 
