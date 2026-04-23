@@ -26,6 +26,7 @@ codex/
     └── agents/
         ├── designer.toml
         ├── frontend-engineer.toml
+        ├── performance_reviewer.toml
         ├── planner.toml
         └── reviewer.toml
 ```
@@ -89,7 +90,7 @@ Codex는 subagent workflow를 통해 여러 작업을 병렬로 나눠 실행할
 
 - global subagent 설정: `.codex/config.toml`의 `[agents]`
 - project-scoped custom agents: `.codex/agents/*.toml`
-- 현재 정의된 custom agents: `planner`, `designer`, `frontend_engineer`, `reviewer`
+- 현재 정의된 custom agents: `planner`, `designer`, `frontend_engineer`, `reviewer`, `performance_reviewer`
 
 ### 어떻게 동작하나
 
@@ -106,7 +107,8 @@ Codex는 subagent workflow를 통해 여러 작업을 병렬로 나눠 실행할
 
 - `planner로 요구사항을 정리하고 designer로 UI 방향을 만든 뒤 frontend_engineer로 구현해줘`
 - `reviewer를 따로 spawn해서 현재 변경점의 회귀 위험만 점검해줘`
-- `planner, designer, reviewer를 각각 병렬로 돌리고 결과를 통합해줘`
+- `performance_reviewer를 따로 spawn해서 렌더링, 번들, 캐시 병목만 점검해줘`
+- `planner, designer, reviewer, performance_reviewer를 각각 병렬로 돌리고 결과를 통합해줘`
 
 ### 현재 설정과의 연결
 
@@ -135,6 +137,7 @@ Codex는 subagent workflow를 통해 여러 작업을 병렬로 나눠 실행할
 - `designer`: 레이아웃, 상태, 인터랙션, 시각 방향 정리
 - `frontend_engineer`: 구현 계획과 실제 코드 변경 담당
 - `reviewer`: 정확성, 회귀, 검증 누락 중심 리뷰
+- `performance_reviewer`: 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰
 
 ### 운영 메모
 
