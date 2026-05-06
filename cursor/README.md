@@ -20,6 +20,7 @@ cursor/
     │   └── verify.md
     └── rules/
         ├── code-quality.mdc
+        ├── karpathy-guidelines.mdc
         └── typescript.mdc
 ```
 
@@ -45,10 +46,11 @@ cursor/
 
 `.cursor/rules/` 안의 파일은 Cursor가 작업 중 참조하는 코드 작성 규칙입니다.
 
-| 파일               | 역할                 |
-| ------------------ | -------------------- |
-| `code-quality.mdc` | 코드 품질 기준       |
-| `typescript.mdc`   | TypeScript 작성 규칙 |
+| 파일                       | 역할                            |
+| -------------------------- | ------------------------------- |
+| `code-quality.mdc`         | 코드 품질 기준                  |
+| `karpathy-guidelines.mdc`  | LLM 코딩 실수 방지 행동 가이드 |
+| `typescript.mdc`           | TypeScript 작성 규칙            |
 
 ---
 
