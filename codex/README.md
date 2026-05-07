@@ -25,7 +25,8 @@ codex/
         ├── frontend-engineer.toml
         ├── performance_reviewer.toml
         ├── planner.toml
-        └── reviewer.toml
+        ├── reviewer.toml
+        └── test_engineer.toml
 ```
 
 ---
@@ -52,6 +53,7 @@ codex/
 | `docs_researcher`      | 공식 문서 기준 API·동작 검증                                            |
 | `reviewer`             | 정확성·보안·접근성·회귀 리뷰                                            |
 | `performance_reviewer` | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
+| `test_engineer`        | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행           |
 
 **예시 요청**
 
@@ -60,6 +62,7 @@ planner로 요구사항 정리 → designer로 UI 방향 설계 → frontend_eng
 code_mapper로 저장 흐름 파악 후 frontend_engineer로 최소 수정만 적용
 docs_researcher로 API 제약 확인 후 reviewer로 위험 점검
 performance_reviewer로 렌더링, 번들, 캐시 병목 점검
+test_engineer로 버그 재현 후 회귀 테스트 추가 및 검증
 ```
 
 **관련 설정** (`config.toml`)
