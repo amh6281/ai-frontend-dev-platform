@@ -19,6 +19,7 @@ codex/
     ├── rules/
     │   └── default.rules
     └── agents/
+        ├── accessibility_reviewer.toml
         ├── code-mapper.toml
         ├── designer.toml
         ├── docs-researcher.toml
@@ -44,24 +45,27 @@ codex/
 복잡한 작업을 역할별로 나눠 병렬 실행할 수 있습니다.
 `.codex/agents/*.toml`로 정의하며, **명시적 요청 시에만** spawn됩니다.
 
-| Agent                  | 역할                                                                    |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `planner`              | 요구사항·범위·수용 기준 정리                                            |
-| `designer`             | 레이아웃·상태·인터랙션·접근성 설계                                      |
-| `code_mapper`          | 실제 코드 경로·수정 표면 탐색                                           |
-| `frontend_engineer`    | 구현 계획 및 코드 변경                                                  |
-| `docs_researcher`      | 공식 문서 기준 API·동작 검증                                            |
-| `reviewer`             | 정확성·보안·접근성·회귀 리뷰                                            |
-| `performance_reviewer` | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
-| `test_engineer`        | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행           |
+| Agent                    | 역할                                                                     |
+| ------------------------ | ------------------------------------------------------------------------ |
+| `accessibility_reviewer` | 키보드 흐름, 포커스 관리, 시맨틱, 스크린 리더, 대비 접근성 리뷰          |
+| `code_mapper`            | 실제 코드 경로·수정 표면 탐색                                            |
+| `designer`               | 레이아웃·상태·인터랙션·접근성 설계                                       |
+| `docs_researcher`        | 공식 문서 기준 API·동작 검증                                             |
+| `frontend_engineer`      | 구현 계획 및 코드 변경                                                   |
+| `performance_reviewer`   | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
+| `planner`                | 요구사항·범위·수용 기준 정리                                             |
+| `reviewer`               | 정확성·보안·접근성·회귀 리뷰                                             |
+| `test_engineer`          | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행            |
 
 **예시 요청**
 
 ```
-planner로 요구사항 정리 → designer로 UI 방향 설계 → frontend_engineer로 구현
+accessibility_reviewer로 키보드, 포커스, 스크린 리더 흐름 점검
 code_mapper로 저장 흐름 파악 후 frontend_engineer로 최소 수정만 적용
+designer로 UI 방향 설계 후 frontend_engineer로 구현
 docs_researcher로 API 제약 확인 후 reviewer로 위험 점검
 performance_reviewer로 렌더링, 번들, 캐시 병목 점검
+planner로 요구사항 정리 → designer로 UI 방향 설계 → frontend_engineer로 구현
 test_engineer로 버그 재현 후 회귀 테스트 추가 및 검증
 ```
 
