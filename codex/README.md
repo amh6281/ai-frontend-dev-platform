@@ -20,10 +20,10 @@ codex/
     │   └── default.rules
     └── agents/
         ├── accessibility_reviewer.toml
-        ├── code-mapper.toml
+        ├── code_mapper.toml
         ├── designer.toml
-        ├── docs-researcher.toml
-        ├── frontend-engineer.toml
+        ├── docs_researcher.toml
+        ├── frontend_engineer.toml
         ├── performance_reviewer.toml
         ├── planner.toml
         ├── reviewer.toml
@@ -48,16 +48,16 @@ codex/
 | 호출 이름                | 파일                              | 역할                                                                     |
 | ------------------------ | --------------------------------- | ------------------------------------------------------------------------ |
 | `accessibility_reviewer` | `accessibility_reviewer.toml`     | 키보드 흐름, 포커스 관리, 시맨틱, 스크린 리더, 대비 접근성 리뷰          |
-| `code_mapper`            | `code-mapper.toml`                | 실제 코드 경로·수정 표면 탐색                                            |
+| `code_mapper`            | `code_mapper.toml`                | 실제 코드 경로·수정 표면 탐색                                            |
 | `designer`               | `designer.toml`                   | 레이아웃·상태·인터랙션·접근성 설계                                       |
-| `docs_researcher`        | `docs-researcher.toml`            | 공식 문서 기준 API·동작 검증                                             |
-| `frontend_engineer`      | `frontend-engineer.toml`          | 구현 계획 및 코드 변경                                                   |
+| `docs_researcher`        | `docs_researcher.toml`            | 공식 문서 기준 API·동작 검증                                             |
+| `frontend_engineer`      | `frontend_engineer.toml`          | 구현 계획 및 코드 변경                                                   |
 | `performance_reviewer`   | `performance_reviewer.toml`       | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
 | `planner`                | `planner.toml`                    | 요구사항·범위·수용 기준 정리                                             |
 | `reviewer`               | `reviewer.toml`                   | 정확성·보안·접근성·회귀 리뷰                                             |
 | `test_engineer`          | `test_engineer.toml`              | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행            |
 
-호출 이름은 각 TOML의 `name` 값을 기준으로 합니다. 파일명은 읽기 쉬운 구분을 위해 일부 kebab-case를 사용합니다.
+호출 이름은 각 TOML의 `name` 값을 기준으로 하며, 파일명도 같은 snake_case를 사용합니다.
 
 **예시 요청**
 

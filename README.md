@@ -59,7 +59,7 @@ Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 
 
 **AGENTS.md 로딩 우선순위:** `AGENTS.override.md` → `AGENTS.md` → `config.toml`의 fallback 파일명
 
-**Custom agent 표기:** agent 호출 이름은 TOML의 `name` 값을 기준으로 하며, 파일명은 kebab-case 또는 snake_case일 수 있습니다.
+**Custom agent 표기:** agent 호출 이름과 TOML 파일명은 snake_case로 맞춥니다.
 
 ---
 
