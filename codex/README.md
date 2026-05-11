@@ -139,6 +139,13 @@ Codex lifecycle 이벤트에 스크립트를 자동 연결합니다.
 
 > Windows에서는 hooks가 비활성화됩니다.
 
+**Hook 동작 기준**
+
+- `SessionStart`는 분리된 workspace 구조와 최종 응답 기준을 추가 컨텍스트로 주입합니다.
+- `PreToolUse`는 위험한 shell 명령을 차단하고, publish 계열 명령은 명시적 판단이 필요하다고 경고합니다.
+- `UserPromptSubmit`은 OpenAI·GitHub·Google API key와 private key 패턴을 감지하면 요청을 막습니다.
+- `Stop`은 최종 응답에 변경 파일과 검증 상태가 빠졌을 때 보완을 요구합니다.
+
 ---
 
 ## 관리 원칙
