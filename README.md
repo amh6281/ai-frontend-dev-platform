@@ -28,7 +28,8 @@ Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 
 ├── codex/          # Codex 작업 루트
 │   ├── AGENTS.md
 │   ├── AGENTS.kr.md
-│   ├── .agents/skills/
+│   ├── .agents/
+│   │   └── skills/
 │   └── .codex/
 │       ├── config.toml
 │       ├── hooks.json
@@ -50,12 +51,15 @@ Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 
 | `codex/AGENTS.md`                  | 기본 작업 규칙               |
 | `codex/AGENTS.kr.md`               | 한국어 참고본 (사람용)       |
 | `codex/.agents/skills/`            | Repo-local skills            |
+| `codex/.agents/skills/workspace-doc-sync/` | 문서 구조 동기화 skill |
 | `codex/.codex/config.toml`         | 공통 설정 및 fallback 파일명 |
 | `codex/.codex/hooks.json`          | Hook 연결 설정               |
 | `codex/.codex/agents/*.toml`       | 역할별 custom agent 정의     |
 | `codex/.codex/rules/default.rules` | 기본 규칙                    |
 
 **AGENTS.md 로딩 우선순위:** `AGENTS.override.md` → `AGENTS.md` → `config.toml`의 fallback 파일명
+
+**Custom agent 표기:** agent 호출 이름은 TOML의 `name` 값을 기준으로 하며, 파일명은 kebab-case 또는 snake_case일 수 있습니다.
 
 ---
 
