@@ -21,7 +21,10 @@ Codex의 실제 instruction discovery에는 사용되지 않습니다.
 
 ## 협업
 
-- planner, designer, frontend engineer, reviewer는 서로 다른 역할로 다룹니다.
+- planner, designer, code mapper, frontend engineer, docs researcher, reviewer, security reviewer, accessibility reviewer, performance reviewer, test engineer는 서로 다른 역할로 다룹니다.
+- 소유 경로나 실행 흐름이 불명확하면 구현 전에 `code_mapper`로 실제 코드 경로를 먼저 파악합니다.
+- 프레임워크나 API 동작을 공식 문서로 확인해야 할 때는 `docs_researcher`를 사용합니다.
+- secret, 인증, 권한, unsafe rendering, 의존성, 민감정보 경계가 바뀌는 경우 `security_reviewer`를 사용합니다.
 - 역할 간 핸드오프 시 가정, 리스크, 열린 질문을 분명히 남깁니다.
 - 스타일 의견보다 정확성, 회귀, 접근성, 검증 누락을 우선합니다.
 
@@ -60,6 +63,17 @@ Codex의 실제 instruction discovery에는 사용되지 않습니다.
 - 텍스트, 아이콘, 포커스 링, 상태를 전달하는 테두리, 읽을 수 있어야 하는 disabled 콘텐츠의 대비를 확인합니다.
 - ARIA를 추가하기 전에 네이티브 HTML 동작을 우선합니다. ARIA가 필요하다면 role, name, state를 정확히 유지합니다.
 - 사용자-facing 변경에는 최소한 키보드 탐색과 관련 스크린 리더 기대 동작을 포함한 접근성 검증을 포함합니다.
+
+## 보안
+
+- secret, token, API key, credential, private key, 민감한 사용자 데이터를 코드, 로그, URL, 클라이언트 번들, 문서에 노출하지 않습니다.
+- 클라이언트에 의도적으로 노출되는 환경 변수는 public으로 간주하고, 서버 전용 값은 서버 전용 경계 안에 둡니다.
+- unsafe HTML injection과 사용자 입력 기반 DOM sink를 피하고, 신뢰할 수 없는 마크업은 렌더링하지 않거나 안전하게 처리합니다.
+- 인증, 인가, role, tenant, permission 가정이 바뀌는 경우 명시적으로 드러냅니다.
+- 제품 구조상 명확히 필요한 경우가 아니라면 민감한 토큰을 브라우저 storage에 저장하지 않습니다.
+- 요청, 응답, 세션, 사용자 관련 민감정보를 로그에 남기지 않습니다.
+- 의존성 추가와 package script 변경은 supply-chain, 번들, 보안 영향을 함께 확인합니다.
+- 인증, 권한, secret 처리, 외부 입력 파싱, redirect, 다운로드, 업로드, 의존성 경계를 바꿀 때는 보안 검증 내용을 포함합니다.
 
 ## 검증
 

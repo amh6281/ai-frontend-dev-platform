@@ -19,9 +19,10 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 
 ## Collaboration
 
-- Treat planner, designer, code mapper, frontend engineer, docs researcher, and reviewer as separate roles.
+- Treat planner, designer, code mapper, frontend engineer, docs researcher, reviewer, security reviewer, accessibility reviewer, performance reviewer, and test engineer as separate roles.
 - Use `code_mapper` for read-heavy code path discovery before implementation when the ownership or execution path is unclear.
 - Use `docs_researcher` when framework or API behavior should be verified against official documentation before changing code.
+- Use `security_reviewer` when changes touch secrets, auth, permissions, unsafe rendering, dependencies, or sensitive data boundaries.
 - Make assumptions, risks, and open questions explicit when handing work across roles.
 - Prioritize correctness, regressions, accessibility, and missing verification over style-only feedback.
 
@@ -60,6 +61,17 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Check contrast for text, icons, focus rings, borders that convey state, and disabled-but-readable content.
 - Prefer native HTML behavior before adding ARIA; when ARIA is needed, keep roles, names, and states accurate.
 - Include accessibility verification for user-facing changes, at least with keyboard navigation and relevant screen reader expectations.
+
+## Security
+
+- Do not expose secrets, tokens, API keys, credentials, private keys, or sensitive user data in code, logs, URLs, client bundles, or documentation.
+- Treat environment variables as public when they are intentionally exposed to the client, and keep server-only values behind server-only boundaries.
+- Avoid unsafe HTML injection and user-controlled DOM sinks; sanitize or avoid rendering untrusted markup.
+- Keep authentication, authorization, role, tenant, and permission assumptions explicit when changing protected flows.
+- Do not store sensitive tokens in browser storage unless the product architecture explicitly requires it and the risk is understood.
+- Avoid logging sensitive request, response, session, or user data.
+- Review dependency additions and package scripts for supply-chain, bundle, and security implications.
+- Include security verification when changing auth, permissions, secret handling, external input parsing, redirects, downloads, uploads, or dependency boundaries.
 
 ## Verification
 
