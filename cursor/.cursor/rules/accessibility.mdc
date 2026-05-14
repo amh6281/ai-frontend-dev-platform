@@ -1,0 +1,91 @@
+---
+description: Accessibility requirements for user-facing UI. Apply when building, reviewing, or modifying components, pages, forms, navigation, dialogs, popovers, or interactive states.
+globs: ['**/*.{ts,tsx,js,jsx,html,css,scss}']
+---
+
+# Accessibility Rules
+
+Accessibility is part of code quality, not a final polish pass. Apply these rules to user-facing UI changes and mention relevant accessibility verification in the final response.
+
+---
+
+## 1) Semantic Structure
+
+- Prefer semantic HTML over generic containers.
+- Use landmarks such as `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, and `<footer>` when they match the content.
+- Keep heading levels meaningful and ordered.
+- Prefer native controls such as `<button>`, `<a>`, `<input>`, `<select>`, and `<textarea>` before custom interactive elements.
+- Do not add ARIA when native HTML already provides the right role, name, state, and behavior.
+
+```tsx
+// Good
+<button type="button" onClick={onClose}>
+	Close
+</button>
+
+// Avoid
+<div onClick={onClose}>Close</div>
+```
+
+---
+
+## 2) Names, Labels, and Descriptions
+
+- Every interactive control needs an accessible name.
+- Icon-only buttons must have an `aria-label` or equivalent visible label.
+- Form inputs need associated labels using `<label htmlFor>` or an equivalent accessible pattern.
+- Use `aria-describedby` for helper text, constraints, and error descriptions.
+- Mark invalid fields with `aria-invalid` and connect the error message to the field.
+- Informative images need meaningful `alt` text; decorative images should use empty `alt=""`.
+
+```tsx
+// Good
+<button type="button" aria-label="Close dialog">
+	<CloseIcon aria-hidden="true" />
+</button>
+
+<label htmlFor="email">Email</label>
+<input id="email" aria-invalid={hasError} aria-describedby={hasError ? 'email-error' : undefined} />
+{hasError ? <p id="email-error">Enter a valid email address.</p> : null}
+```
+
+---
+
+## 3) Keyboard and Focus
+
+- All interactive behavior must be reachable and operable by keyboard.
+- Preserve visible focus indicators.
+- Keep tab order predictable and aligned with the visual and logical flow.
+- Manage focus for dialogs, popovers, menus, validation errors, routed views, and async updates.
+- Escape should close dismissible overlays when that is the expected platform behavior.
+- Avoid keyboard traps unless the UI is an active modal that intentionally contains focus.
+
+---
+
+## 4) State and Announcements
+
+- Loading, success, error, and status changes must be available to assistive technology when they are not visually persistent.
+- Use live regions or status elements for important async changes.
+- Disabled controls should communicate why an action is unavailable when the reason is not obvious.
+- Empty, loading, error, and success states should preserve semantic structure and focus behavior.
+
+---
+
+## 5) Visual Accessibility
+
+- Meet WCAG AA contrast for text and meaningful UI indicators.
+- Do not rely on color alone to communicate state, errors, categories, or progress.
+- Check contrast for text, icons, focus rings, borders that convey state, and disabled-but-readable content.
+- Keep touch and pointer targets large enough to use reliably.
+- Ensure text, controls, and interactive targets remain usable across responsive layouts and browser zoom.
+- Respect reduced-motion preferences for non-essential animation.
+
+---
+
+## 6) Verification
+
+- For UI changes, verify keyboard navigation through the changed flow.
+- Check focus entry, focus movement, and focus return for overlays and routed changes.
+- Confirm accessible names for icon-only controls and custom widgets.
+- Confirm labels, helper text, and error messages for forms.
+- Mention any manual accessibility checks that were not run.

@@ -19,6 +19,7 @@ cursor/
     │   ├── sync-pr.md
     │   └── verify.md
     └── rules/
+        ├── accessibility.mdc
         ├── code-quality.mdc
         ├── karpathy-guidelines.mdc
         └── typescript.mdc
@@ -48,6 +49,7 @@ cursor/
 
 | 파일                       | 역할                            |
 | -------------------------- | ------------------------------- |
+| `accessibility.mdc`        | 접근성 작성 및 검증 규칙        |
 | `code-quality.mdc`         | 코드 품질 기준                  |
 | `karpathy-guidelines.mdc`  | LLM 코딩 실수 방지 행동 가이드 |
 | `typescript.mdc`           | TypeScript 작성 규칙            |

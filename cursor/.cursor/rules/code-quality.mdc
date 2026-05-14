@@ -152,86 +152,11 @@ Guidelines for writing clean, maintainable code and efficient development workfl
 
 ---
 
-## 7) Accessibility & Semantic HTML
+## 7) Accessibility
 
-### Use Semantic HTML Elements
-
-- Use semantic HTML elements (`<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`) instead of generic `<div>` elements
-- Prefer `<button>` over `<div>` with onClick handlers
-- Use proper heading hierarchy (`<h1>` through `<h6>`)
-- Use `<label>` elements for form inputs
-
-```tsx
-// Good
-<main>
-  <header>
-    <h1>Page Title</h1>
-  </header>
-  <section>
-    <article>
-      <h2>Article Title</h2>
-      <p>Content</p>
-    </article>
-  </section>
-</main>
-
-// Avoid
-<div>
-  <div>
-    <div>Page Title</div>
-  </div>
-  <div>
-    <div>Article Title</div>
-    <div>Content</div>
-  </div>
-</div>
-```
-
-### Accessibility Attributes
-
-- Always provide `alt` text for images
-- Use `aria-label` for icon-only buttons
-- Use `aria-describedby` to associate descriptions with form inputs
-- Use `role` attributes when semantic HTML isn't sufficient
-- Ensure interactive elements are keyboard accessible
-
-```tsx
-// Good
-<button aria-label="Close dialog">
-  <CloseIcon />
-</button>
-
-<img src="chart.png" alt="Sales chart showing 20% increase" />
-
-<input
-  type="text"
-  aria-describedby="email-help"
-  aria-invalid={hasError}
-/>
-<span id="email-help">Enter your email address</span>
-
-// Avoid
-<div onClick={handleClose}>
-  <CloseIcon />
-</div>
-
-<img src="chart.png" />
-
-<input type="text" />
-```
-
-### Keyboard Navigation
-
-- Ensure all interactive elements are keyboard accessible
-- Use proper focus management for modals and dropdowns
-- Provide visible focus indicators
-- Support keyboard shortcuts where appropriate
-
-### Color Contrast
-
-- Ensure sufficient color contrast for text (WCAG AA minimum)
-- Don't rely solely on color to convey information
-- Provide alternative indicators (icons, text) for color-coded information
+- Treat accessibility as a baseline quality requirement for user-facing UI changes.
+- Prefer semantic HTML, native controls, accessible names, keyboard access, visible focus, and sufficient contrast.
+- Keep detailed accessibility rules in `accessibility.mdc`; use that file when building or reviewing UI.
 
 ---
 
