@@ -51,6 +51,15 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Ensure icon-only controls have accessible names.
 - Provide meaningful `alt` text for informative images.
 - Do not rely on color alone to communicate meaning.
+- Preserve visible focus indicators and predictable tab order.
+- Use native form controls, labels, validation messages, and disabled states whenever possible.
+- Manage focus for dialogs, popovers, routed views, validation errors, and async updates.
+- Announce loading, success, error, and status changes when they are not visually persistent.
+- Keep text, controls, and interactive targets usable across responsive layouts and zoom.
+- Respect reduced-motion preferences for non-essential animation.
+- Check contrast for text, icons, focus rings, borders that convey state, and disabled-but-readable content.
+- Prefer native HTML behavior before adding ARIA; when ARIA is needed, keep roles, names, and states accurate.
+- Include accessibility verification for user-facing changes, at least with keyboard navigation and relevant screen reader expectations.
 
 ## Verification
 
