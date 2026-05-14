@@ -22,6 +22,8 @@ cursor/
         ├── accessibility.mdc
         ├── code-quality.mdc
         ├── karpathy-guidelines.mdc
+        ├── react.mdc
+        ├── testing.mdc
         └── typescript.mdc
 ```
 
@@ -52,6 +54,8 @@ cursor/
 | `accessibility.mdc`        | 접근성 작성 및 검증 규칙        |
 | `code-quality.mdc`         | 코드 품질 기준                  |
 | `karpathy-guidelines.mdc`  | LLM 코딩 실수 방지 행동 가이드 |
+| `react.mdc`                | React 컴포넌트·훅 작성 규칙     |
+| `testing.mdc`              | 테스트 작성 및 검증 규칙        |
 | `typescript.mdc`           | TypeScript 작성 규칙            |
 
 ---

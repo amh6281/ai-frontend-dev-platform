@@ -1,0 +1,76 @@
+---
+description: React component and hook rules for predictable state, effects, rendering, accessibility, and maintainable UI boundaries.
+globs: ['**/*.{tsx,jsx}']
+---
+
+# React Rules
+
+Use these rules when building, reviewing, or refactoring React components, hooks, pages, and user-facing interactions.
+
+---
+
+## 1) Component Boundaries
+
+- Keep components focused on one responsibility: layout, data wiring, or reusable UI behavior.
+- Prefer composition over large prop-driven components with many conditional branches.
+- Do not introduce new shared components until at least two real call sites need the same behavior.
+- Keep domain-specific components close to their feature unless the project already has a shared component convention.
+- Prefer existing design-system primitives, tokens, variants, and interaction patterns before creating new UI primitives.
+
+---
+
+## 2) State Modeling
+
+- Store the minimum state needed to render the UI.
+- Derive values during render when they are cheap and deterministic.
+- Avoid duplicating props in state unless the component intentionally owns an editable draft.
+- Prefer discriminated unions for async and multi-step UI states.
+- Keep loading, empty, error, success, disabled, and optimistic states explicit when users can observe them.
+
+---
+
+## 3) Effects
+
+- Do not use `useEffect` for values that can be derived during render.
+- Keep effects tied to external synchronization: subscriptions, timers, network calls, browser APIs, or imperative integrations.
+- Include all required dependencies; restructure code instead of suppressing dependency rules.
+- Clean up subscriptions, timers, listeners, and async work that can outlive the component.
+- Avoid effect chains where one effect only sets state for another effect.
+
+---
+
+## 4) Rendering and Performance
+
+- Avoid expensive work inside render paths for large lists or high-frequency updates.
+- Use `useMemo`, `useCallback`, and `React.memo` only when they prevent a measured or clearly plausible cost.
+- Prefer pagination, filtering, or virtualization for large collections.
+- Keep list keys stable and tied to item identity, not array index, when order can change.
+- Avoid creating new object or function props only when they cause meaningful downstream work.
+
+---
+
+## 5) Forms and Events
+
+- Prefer controlled form fields when validation, formatting, or conditional UI depends on the value.
+- Keep validation messages connected to the relevant fields.
+- Prevent duplicate submits during pending states.
+- Handle async event failures with visible user feedback.
+- Use semantic buttons and links for actions and navigation.
+
+---
+
+## 6) Accessibility and Responsive UI
+
+- Follow `accessibility.mdc` for names, labels, keyboard access, focus, contrast, and announcements.
+- Preserve focus behavior for dialogs, popovers, menus, route changes, validation errors, and async updates.
+- Ensure changed UI works at mobile and desktop widths without text overflow or overlapping controls.
+- Respect reduced-motion preferences for non-essential animation.
+
+---
+
+## 7) Testing
+
+- Test user-observable behavior rather than implementation details.
+- Prefer interactions through accessible roles, labels, and visible text.
+- Cover loading, empty, error, success, and disabled states when the component owns those states.
+- For broader testing expectations, follow `testing.mdc`.

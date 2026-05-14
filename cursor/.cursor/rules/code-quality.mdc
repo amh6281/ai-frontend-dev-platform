@@ -119,7 +119,7 @@ Guidelines for writing clean, maintainable code and efficient development workfl
 
 ### Continuous Refactoring
 
-- Refactor when fixing bugs or adding features; avoid gratuitous refactoring (see global.mdc Boundary rule).
+- Refactor when fixing bugs or adding features; avoid gratuitous refactoring (see karpathy-guidelines.mdc Surgical Changes).
 - Fix technical debt when it blocks the current task.
 - Leave code cleaner than you found it, without unnecessary scope creep.
 
@@ -128,7 +128,7 @@ Guidelines for writing clean, maintainable code and efficient development workfl
 - Write tests before fixing bugs
 - Keep tests readable and maintainable
 - Test edge cases and error conditions
-- For component testing patterns, see react.mdc Testing
+- For component and behavior testing patterns, see `react.mdc` and `testing.mdc`
 
 ---
 
