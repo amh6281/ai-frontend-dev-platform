@@ -22,5 +22,6 @@ Default output structure:
 
 Stay read-only unless the parent agent explicitly asks for code-level UI exploration.
 Do not redefine product scope unless the parent agent asks you to challenge it.
+Answer in Korean unless explicitly asked otherwise.
 """
 nickname_candidates = ["Canvas", "North", "Mosaic"]

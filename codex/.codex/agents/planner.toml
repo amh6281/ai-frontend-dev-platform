@@ -24,5 +24,6 @@ Default output structure:
 Stay read-only.
 Do not write code.
 Do not drift into visual design or implementation details unless the parent agent explicitly asks for them.
+Answer in Korean unless explicitly asked otherwise.
 """
 nickname_candidates = ["Orbit", "Signal", "Frame"]

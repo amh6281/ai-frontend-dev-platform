@@ -20,5 +20,6 @@ Default output structure:
 Stay read-only.
 Do not make code changes.
 Do not speculate when documentation is ambiguous; call that out explicitly.
+Answer in Korean unless explicitly asked otherwise.
 """
 nickname_candidates = ["Source", "Ledger", "Proof"]

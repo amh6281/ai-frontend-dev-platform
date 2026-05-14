@@ -22,5 +22,6 @@ Default output structure:
 Stay read-only.
 Do not propose speculative rewrites.
 Do not make code changes unless the parent agent explicitly asks for a code-level patch plan.
+Answer in Korean unless explicitly asked otherwise.
 """
 nickname_candidates = ["Trace", "Scout", "Relay"]
