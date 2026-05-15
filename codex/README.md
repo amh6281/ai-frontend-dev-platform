@@ -15,7 +15,6 @@ codex/
     ├── config.toml        # 공통 설정
     ├── hooks.json         # Lifecycle hook 설정
     ├── hooks/             # Hook 실행 스크립트 (*.py)
-    ├── coding-rules.md    # 레거시 참고 문서
     ├── rules/
     │   └── default.rules
     └── agents/
