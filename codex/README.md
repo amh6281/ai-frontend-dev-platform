@@ -125,7 +125,7 @@ Codex lifecycle 이벤트에 스크립트를 자동 연결합니다.
 
 **활성화 조건**
 
-- `config.toml`에 `codex_hooks = true` 설정
+- `config.toml`에 `hooks = true` 설정
 - `hooks.json`에 이벤트·스크립트 연결 정의
 
 **지원 이벤트 및 현재 hook**

@@ -5,7 +5,7 @@ project_doc_max_bytes = 65536
 
 # Codex hooks 기능 활성화
 [features]
-codex_hooks = true
+hooks = true
 
 # 서브에이전트 공통 설정
 [agents]
