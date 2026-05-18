@@ -1,17 +1,17 @@
 # ai-frontend-dev-platform
 
-![Codex](https://img.shields.io/badge/Codex-supported-black) ![Cursor](https://img.shields.io/badge/Cursor-supported-black)
+![Codex](https://img.shields.io/badge/Codex-supported-black) ![Claude](https://img.shields.io/badge/Claude-supported-black) ![Cursor](https://img.shields.io/badge/Cursor-supported-black)
 
 AI 에이전트별 작업 규칙과 실행 문서를 한 저장소에서 관리하는 플랫폼입니다.  
 각 도구는 자신의 작업 루트 안에서 설정이 독립적으로 닫히도록 구성합니다.
 
-> Codex를 쓴다면 `codex/`만 보면 됩니다. Cursor를 쓴다면 `cursor/`만 보면 됩니다.
+> Codex를 쓴다면 `codex/`만 보면 됩니다. Claude를 쓴다면 `claude/`만 보면 됩니다. Cursor를 쓴다면 `cursor/`만 보면 됩니다.
 
 ---
 
 ## 왜 이런 구조인가
 
-Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 두 도구를 같은 저장소에서 함께 쓰면 서로의 설정이 섞이거나 의도치 않게 읽힐 수 있습니다.
+Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 여러 도구를 같은 저장소에서 함께 쓰면 서로의 설정이 섞이거나 의도치 않게 읽힐 수 있습니다.
 이 저장소는 각 도구의 작업 루트를 분리해 그 문제를 줄입니다.
 
 - 저장소 루트는 전체 개요만 설명합니다.
@@ -36,6 +36,8 @@ Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 
 │       ├── hooks/
 │       ├── rules/
 │       └── agents/
+├── claude/         # Claude 작업 루트
+│   └── CLAUDE.md
 └── cursor/         # Cursor 작업 루트
     └── .cursor/
         ├── commands/
@@ -60,6 +62,16 @@ Codex와 Cursor는 각각 설정 파일을 탐색하는 방식이 다릅니다. 
 **AGENTS.md 로딩 우선순위:** `AGENTS.override.md` → `AGENTS.md` → `config.toml`의 fallback 파일명
 
 **Custom agent 표기:** agent 호출 이름과 TOML 파일명은 snake_case로 맞춥니다.
+
+---
+
+## Claude
+
+| 경로                | 역할           |
+| ------------------- | -------------- |
+| `claude/CLAUDE.md`  | 기본 작업 규칙 |
+
+**CLAUDE.md 로딩:** Claude Code는 프로젝트 지침으로 `CLAUDE.md`를 사용합니다. 이 저장소에서는 Claude 작업 루트를 `claude/`로 분리합니다.
 
 ---
 
