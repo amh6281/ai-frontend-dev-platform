@@ -126,6 +126,17 @@ description: 언제 이 skill을 써야 하는지 명확히 기술
 Skill instructions...
 ```
 
+**Skill 파일 구조**
+
+| 경로                  | 역할                                      | 필수 여부 |
+| --------------------- | ----------------------------------------- | --------- |
+| `SKILL.md`            | Codex가 실제로 읽고 따르는 skill instruction | 필수      |
+| `agents/openai.yaml`  | skill 목록 표시용 이름·설명·기본 프롬프트 | 선택      |
+| `SKILL.kr.md`         | 사람이 읽기 위한 한국어 참고본            | 선택      |
+| `scripts/`            | 반복 실행용 스크립트                      | 선택      |
+| `references/`         | 필요할 때만 읽는 상세 참고 자료           | 선택      |
+| `assets/`             | skill이 출력물에 사용할 템플릿·리소스     | 선택      |
+
 **포함된 샘플 skill**
 
 - `git-commit` — staged changes 기준 커밋 메시지를 만들고 커밋 후 push 여부를 확인
