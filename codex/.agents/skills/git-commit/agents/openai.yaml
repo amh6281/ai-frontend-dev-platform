@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit"
+  short_description: "Commit staged changes and ask before pushing"
+  default_prompt: "Use $git-commit to create a commit from staged changes only and ask before pushing."

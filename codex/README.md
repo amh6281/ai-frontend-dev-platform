@@ -128,6 +128,7 @@ Skill instructions...
 
 **포함된 샘플 skill**
 
+- `git-commit` — staged changes 기준 커밋 메시지를 만들고 커밋 후 push 여부를 확인
 - `workspace-doc-sync` — 폴더 구조 변경 후 README·AGENTS·hooks·skills 문서를 실제 구조에 맞게 동기화
 
 `workspace-doc-sync/SKILL.md`가 실제 instruction이며, `SKILL.kr.md`는 사람이 읽기 위한 한국어 참고본입니다. `agents/openai.yaml`은 skill 목록에서 보이는 이름과 기본 프롬프트 같은 표시용 메타데이터를 담습니다.
