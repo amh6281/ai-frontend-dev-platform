@@ -59,18 +59,18 @@ Codex를 사용할 때는 `codex/`를 작업 루트로 열고 시작합니다.
 복잡한 작업을 역할별로 나눠 병렬 실행할 수 있습니다.
 `.codex/agents/*.toml`로 정의하며, **명시적 요청 시에만** spawn됩니다.
 
-| 호출 이름                | 파일                              | 역할                                                                     |
-| ------------------------ | --------------------------------- | ------------------------------------------------------------------------ |
-| `accessibility_reviewer` | `accessibility_reviewer.toml`     | 키보드 흐름, 포커스 관리, 시맨틱, 스크린 리더, 대비 접근성 리뷰          |
-| `code_mapper`            | `code_mapper.toml`                | 실제 코드 경로·수정 표면 탐색                                            |
-| `designer`               | `designer.toml`                   | 레이아웃·상태·인터랙션·접근성 설계                                       |
-| `docs_researcher`        | `docs_researcher.toml`            | 공식 문서 기준 API·동작 검증                                             |
-| `frontend_engineer`      | `frontend_engineer.toml`          | 구현 계획 및 코드 변경                                                   |
-| `performance_reviewer`   | `performance_reviewer.toml`       | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
-| `planner`                | `planner.toml`                    | 요구사항·범위·수용 기준 정리                                             |
-| `reviewer`               | `reviewer.toml`                   | 정확성·접근성·회귀·검증 공백 중심의 종합 리뷰                            |
-| `security_reviewer`      | `security_reviewer.toml`          | secret 노출, 인증·권한, XSS, 민감정보 경계 등 보안 리뷰                  |
-| `test_engineer`          | `test_engineer.toml`              | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행            |
+| 호출 이름                | 파일                          | 역할                                                                     |
+| ------------------------ | ----------------------------- | ------------------------------------------------------------------------ |
+| `accessibility_reviewer` | `accessibility_reviewer.toml` | 키보드 흐름, 포커스 관리, 시맨틱, 스크린 리더, 대비 접근성 리뷰          |
+| `code_mapper`            | `code_mapper.toml`            | 실제 코드 경로·수정 표면 탐색                                            |
+| `designer`               | `designer.toml`               | 레이아웃·상태·인터랙션·접근성 설계                                       |
+| `docs_researcher`        | `docs_researcher.toml`        | 공식 문서 기준 API·동작 검증                                             |
+| `frontend_engineer`      | `frontend_engineer.toml`      | 구현 계획 및 코드 변경                                                   |
+| `performance_reviewer`   | `performance_reviewer.toml`   | 렌더링, 데이터 패칭, 번들 크기, 캐시, 고빈도 상호작용의 성능 리스크 리뷰 |
+| `planner`                | `planner.toml`                | 요구사항·범위·수용 기준 정리                                             |
+| `reviewer`               | `reviewer.toml`               | 정확성·접근성·회귀·검증 공백 중심의 종합 리뷰                            |
+| `security_reviewer`      | `security_reviewer.toml`      | secret 노출, 인증·권한, XSS, 민감정보 경계 등 보안 리뷰                  |
+| `test_engineer`          | `test_engineer.toml`          | 버그 재현, 테스트 전략 수립, 회귀 테스트 작성, 검증 명령 실행            |
 
 호출 이름은 각 TOML의 `name` 값을 기준으로 하며, 파일명도 같은 snake_case를 사용합니다.
 
@@ -128,34 +128,34 @@ Skill instructions...
 
 **Skill 파일 구조**
 
-| 경로                  | 역할                                      | 필수 여부 |
-| --------------------- | ----------------------------------------- | --------- |
-| `SKILL.md`            | Codex가 실제로 읽고 따르는 skill instruction | 필수      |
-| `agents/openai.yaml`  | skill 목록 표시용 이름·설명·기본 프롬프트 | 선택      |
-| `SKILL.kr.md`         | 사람이 읽기 위한 한국어 참고본            | 선택      |
-| `scripts/`            | 반복 실행용 스크립트                      | 선택      |
-| `references/`         | 필요할 때만 읽는 상세 참고 자료           | 선택      |
-| `assets/`             | skill이 출력물에 사용할 템플릿·리소스     | 선택      |
+| 경로                 | 역할                                         | 필수 여부 |
+| -------------------- | -------------------------------------------- | --------- |
+| `SKILL.md`           | Codex가 실제로 읽고 따르는 skill instruction | 필수      |
+| `SKILL.kr.md`        | 사람이 읽기 위한 한국어 참고본               | 선택      |
+| `agents/openai.yaml` | skill 목록 표시용 이름·설명·기본 프롬프트    | 선택      |
+| `scripts/`           | 반복 실행용 스크립트                         | 선택      |
+| `references/`        | 필요할 때만 읽는 상세 참고 자료              | 선택      |
+| `assets/`            | skill이 출력물에 사용할 템플릿·리소스        | 선택      |
 
 **포함된 샘플 skill**
 
 - `git-commit` — staged changes 기준 커밋 메시지를 만들고 커밋 후 push 여부를 확인
 - `workspace-doc-sync` — 폴더 구조 변경 후 README·AGENTS·hooks·skills 문서를 실제 구조에 맞게 동기화
 
-`workspace-doc-sync/SKILL.md`가 실제 instruction이며, `SKILL.kr.md`는 사람이 읽기 위한 한국어 참고본입니다. `agents/openai.yaml`은 skill 목록에서 보이는 이름과 기본 프롬프트 같은 표시용 메타데이터를 담습니다.
+각 skill의 `SKILL.md`가 실제 instruction이며, `SKILL.kr.md`는 사람이 읽기 위한 한국어 참고본입니다. `agents/openai.yaml`은 skill 목록에서 보이는 이름과 기본 프롬프트 같은 표시용 메타데이터를 담습니다.
 
 ---
 
 ## 변경 위치 가이드
 
-| 바꾸려는 것                 | 수정 위치                                   | 같이 확인할 문서                 |
-| --------------------------- | ------------------------------------------- | -------------------------------- |
-| 기본 Codex 응답·작업 규칙   | `AGENTS.md`, 필요 시 `AGENTS.kr.md`         | 이 문서의 AGENTS.md 로드 규칙    |
-| fallback instruction 파일명 | `.codex/config.toml`                        | `AGENTS.md`의 Discovery Notes    |
-| lifecycle hook 연결         | `.codex/hooks.json`                         | 이 문서의 Hooks 섹션             |
-| hook 실제 정책              | `.codex/hooks/*.py`                         | `.codex/hooks.json`              |
-| custom agent 역할           | `.codex/agents/*.toml`                      | 이 문서의 Subagents 섹션         |
-| repo-local skill            | `.agents/skills/<skill-name>/SKILL.md`      | 이 문서의 Skills 섹션            |
+| 바꾸려는 것                 | 수정 위치                              | 같이 확인할 문서              |
+| --------------------------- | -------------------------------------- | ----------------------------- |
+| 기본 Codex 응답·작업 규칙   | `AGENTS.md`, 필요 시 `AGENTS.kr.md`    | 이 문서의 AGENTS.md 로드 규칙 |
+| fallback instruction 파일명 | `.codex/config.toml`                   | `AGENTS.md`의 Discovery Notes |
+| lifecycle hook 연결         | `.codex/hooks.json`                    | 이 문서의 Hooks 섹션          |
+| hook 실제 정책              | `.codex/hooks/*.py`                    | `.codex/hooks.json`           |
+| custom agent 역할           | `.codex/agents/*.toml`                 | 이 문서의 Subagents 섹션      |
+| repo-local skill            | `.agents/skills/<skill-name>/SKILL.md` | 이 문서의 Skills 섹션         |
 
 ---
 
