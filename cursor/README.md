@@ -29,6 +29,19 @@ cursor/
 
 ---
 
+## 빠른 시작
+
+Cursor를 사용할 때는 `cursor/`를 작업 루트로 열고 시작합니다.
+
+1. 반복 작업 명령은 `.cursor/commands/*.md`에서 확인합니다.
+2. 코드 작성 규칙은 `.cursor/rules/*.mdc`에서 확인합니다.
+3. command를 추가하면 이 문서의 Commands 표를 함께 갱신합니다.
+4. rule을 추가하면 이 문서의 Rules 표를 함께 갱신합니다.
+
+Codex 설정과 Cursor 설정은 서로 참조하지 않고, 각자 폴더 안에서 독립적으로 관리합니다.
+
+---
+
 ## Commands
 
 `.cursor/commands/` 안의 각 파일은 Cursor에서 실행 가능한 command를 정의합니다.

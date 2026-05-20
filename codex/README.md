@@ -32,6 +32,20 @@ codex/
 
 ---
 
+## 빠른 시작
+
+Codex를 사용할 때는 `codex/`를 작업 루트로 열고 시작합니다.
+
+1. 기본 작업 규칙은 `AGENTS.md`에서 확인합니다.
+2. Codex 자체 설정은 `.codex/config.toml`에서 확인합니다.
+3. hook 연결은 `.codex/hooks.json`에서 확인하고, 실제 동작은 `.codex/hooks/*.py`에서 수정합니다.
+4. 역할별 custom agent는 `.codex/agents/*.toml`에서 수정합니다.
+5. repo-local skill은 `.agents/skills/<skill-name>/SKILL.md`를 기준으로 추가하거나 수정합니다.
+
+구조나 discovery 규칙을 바꿨다면 루트 `../README.md`와 이 문서를 함께 갱신합니다.
+
+---
+
 ## AGENTS.md 로드 규칙
 
 - Codex는 작업 시작 전 `AGENTS.md` 체인을 구성합니다.
@@ -117,6 +131,19 @@ Skill instructions...
 - `workspace-doc-sync` — 폴더 구조 변경 후 README·AGENTS·hooks·skills 문서를 실제 구조에 맞게 동기화
 
 `workspace-doc-sync/SKILL.md`가 실제 instruction이며, `SKILL.kr.md`는 사람이 읽기 위한 한국어 참고본입니다. `agents/openai.yaml`은 skill 목록에서 보이는 이름과 기본 프롬프트 같은 표시용 메타데이터를 담습니다.
+
+---
+
+## 변경 위치 가이드
+
+| 바꾸려는 것                 | 수정 위치                                   | 같이 확인할 문서                 |
+| --------------------------- | ------------------------------------------- | -------------------------------- |
+| 기본 Codex 응답·작업 규칙   | `AGENTS.md`, 필요 시 `AGENTS.kr.md`         | 이 문서의 AGENTS.md 로드 규칙    |
+| fallback instruction 파일명 | `.codex/config.toml`                        | `AGENTS.md`의 Discovery Notes    |
+| lifecycle hook 연결         | `.codex/hooks.json`                         | 이 문서의 Hooks 섹션             |
+| hook 실제 정책              | `.codex/hooks/*.py`                         | `.codex/hooks.json`              |
+| custom agent 역할           | `.codex/agents/*.toml`                      | 이 문서의 Subagents 섹션         |
+| repo-local skill            | `.agents/skills/<skill-name>/SKILL.md`      | 이 문서의 Skills 섹션            |
 
 ---
 
