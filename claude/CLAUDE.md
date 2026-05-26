@@ -8,7 +8,10 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Expected instruction file for this workspace: `/claude/CLAUDE.md`
 - Keep Claude-specific guidance inside `claude/` so it stays isolated from Codex and Cursor configuration.
 - Detailed Claude rule files live in `/claude/.claude/rules/`.
+- Claude slash command documents live in `/claude/.claude/commands/`.
 - Cursor code quality, TypeScript, React, testing, accessibility, and LLM behavior rules have been adapted into Claude rule files.
+- Cursor commands have been adapted into Claude command files.
+- Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
 - If a future override file is introduced for Claude workflows, document its precedence here before relying on it.
 
 ## Rule Files
@@ -19,6 +22,17 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/rules/accessibility.md` — semantic HTML, names, keyboard, focus, announcements, contrast, and verification.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
 - `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
+
+## Commands
+
+- `.claude/commands/commit.md` — generate a commit title from staged changes, commit, and ask before pushing.
+- `.claude/commands/create-pr.md` — analyze git changes, generate a commit and pull request, and create or update the PR.
+- `.claude/commands/create-pr-kr.md` — Korean PR creation workflow using the same team convention.
+- `.claude/commands/refactor.md` — analyze target files against Claude code-quality and TypeScript rules before approved refactoring.
+- `.claude/commands/review.md` — review an open PR from the current diff and prepare inline review comments.
+- `.claude/commands/sync-pr.md` — create a PR for the current branch or update the existing PR body from pushed commits.
+- `.claude/commands/verify.md` — run available project quality checks and summarize lint, type, and build results.
+- `.claude/commands/workspace-doc-sync.md` — keep workspace documentation aligned with real folder, command, rule, hook, and tool-root structure.
 
 ## Working Agreements
 
