@@ -9,9 +9,11 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Keep Claude-specific guidance inside `claude/` so it stays isolated from Codex and Cursor configuration.
 - Detailed Claude rule files live in `/claude/.claude/rules/`.
 - Claude slash command documents live in `/claude/.claude/commands/`.
+- Claude subagent definitions live in `/claude/.claude/agents/`.
 - Cursor code quality, TypeScript, React, testing, accessibility, and LLM behavior rules have been adapted into Claude rule files.
 - Cursor commands have been adapted into Claude command files.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
+- Codex role-based agents have been adapted into Claude subagent files under `/claude/.claude/agents/` with kebab-case names.
 - If a future override file is introduced for Claude workflows, document its precedence here before relying on it.
 
 ## Rule Files
@@ -33,6 +35,23 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/commands/sync-pr.md` — create a PR for the current branch or update the existing PR body from pushed commits.
 - `.claude/commands/verify.md` — run available project quality checks and summarize lint, type, and build results.
 - `.claude/commands/workspace-doc-sync.md` — keep workspace documentation aligned with real folder, command, rule, hook, and tool-root structure.
+
+## Subagents
+
+Role-specialized subagents live in `.claude/agents/`. Invoke them by name with the Agent tool when the task matches their description, or let Claude delegate automatically based on the `description` frontmatter.
+
+- `planner` — read-only requirement clarification and acceptance criteria.
+- `code-mapper` — read-only execution-path discovery before edits.
+- `designer` — read-only UI layout, interaction states, and implementation handoff.
+- `docs-researcher` — read-only documentation verification for framework, browser, and API behavior.
+- `frontend-engineer` — implementation with minimal scope, strong typing, and verification.
+- `reviewer` — read-only general code review for correctness, regressions, and accessibility.
+- `security-reviewer` — read-only review for secret exposure, auth, XSS, dependency, and data boundary risks.
+- `accessibility-reviewer` — read-only review for keyboard, focus, semantics, contrast, and screen reader behavior.
+- `performance-reviewer` — read-only review for rendering, fetching, bundle, cache, and high-frequency interaction risks.
+- `test-engineer` — bug reproduction, regression test placement, and verification.
+
+Read-only subagents are restricted to `Read, Grep, Glob` (plus `WebFetch, WebSearch` where relevant) and must not edit files.
 
 ## Working Agreements
 
