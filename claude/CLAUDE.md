@@ -10,6 +10,8 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Detailed Claude rule files live in `/claude/.claude/rules/`.
 - Claude slash command documents live in `/claude/.claude/commands/`.
 - Claude subagent definitions live in `/claude/.claude/agents/`.
+- Claude settings and hook wiring live in `/claude/.claude/settings.json`.
+- Claude lifecycle hook scripts live in `/claude/.claude/hooks/`.
 - Cursor code quality, TypeScript, React, testing, accessibility, and LLM behavior rules have been adapted into Claude rule files.
 - Cursor commands have been adapted into Claude command files.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
@@ -52,6 +54,19 @@ Role-specialized subagents live in `.claude/agents/`. Invoke them by name with t
 - `test-engineer` — bug reproduction, regression test placement, and verification.
 
 Read-only subagents are restricted to `Read, Grep, Glob` (plus `WebFetch, WebSearch` where relevant) and must not edit files.
+
+## Hooks
+
+Lifecycle hooks are wired in `.claude/settings.json` and implemented as scripts in `.claude/hooks/`. They run automatically on the matching event; no command is needed. Paths use `$CLAUDE_PROJECT_DIR` so they resolve against the `claude/` working root.
+
+| Event | Hook script | Behavior |
+| ----- | ----------- | -------- |
+| `SessionStart` | `session_start_context.py` | Inject split-workspace layout and final-response expectations as extra context. |
+| `PreToolUse` (Bash) | `pre_tool_use_policy.py` | Deny destructive shell commands (`rm -rf /`, `git reset --hard`, `mkfs`, …) and warn on publish commands. |
+| `UserPromptSubmit` | `user_prompt_submit_guard.py` | Block prompts containing API key or private key patterns; otherwise add guidance. |
+| `Stop` | `stop_quality_gate.py` | Ask for a follow-up when the final response omits changed files or verification status. |
+
+Hooks require a working `python3`. They are adapted from the Codex hooks in `../codex/.codex/hooks/` and use the same event schema. When changing hook behavior, update both the script and this table.
 
 ## Working Agreements
 

@@ -36,6 +36,12 @@ claude/
 │   │   ├── react.md
 │   │   ├── testing.md
 │   │   └── typescript.md
+│   ├── hooks/
+│   │   ├── session_start_context.py
+│   │   ├── pre_tool_use_policy.py
+│   │   ├── user_prompt_submit_guard.py
+│   │   └── stop_quality_gate.py
+│   └── settings.json
 ├── CLAUDE.md
 └── README.md
 ```
@@ -50,8 +56,9 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 2. 세부 rule은 `.claude/rules/*.md`에서 확인합니다.
 3. 반복 작업 command는 `.claude/commands/*.md`에서 확인합니다.
 4. 역할별 subagent는 `.claude/agents/*.md`에서 확인합니다.
-5. Claude 전용 규칙이나 command, subagent를 바꾸면 이 문서를 함께 갱신합니다.
-6. 저장소 전체 구조를 바꾸면 루트 `../README.md`도 함께 갱신합니다.
+5. lifecycle hook 연결은 `.claude/settings.json`에서 확인하고, 실제 동작은 `.claude/hooks/*.py`에서 수정합니다.
+6. Claude 전용 규칙이나 command, subagent, hook을 바꾸면 이 문서를 함께 갱신합니다.
+7. 저장소 전체 구조를 바꾸면 루트 `../README.md`도 함께 갱신합니다.
 
 ---
 
@@ -130,6 +137,42 @@ security-reviewer로 secret 노출, 인증 경계, XSS 위험 점검
 planner로 요구사항 정리 → designer로 UI 방향 설계 → frontend-engineer로 구현
 test-engineer로 버그 재현 후 회귀 테스트 추가 및 검증
 ```
+
+---
+
+## Hooks
+
+Claude Code lifecycle 이벤트에 스크립트를 자동 연결합니다. 별도 명령 없이 해당 이벤트 발생 시 자동 실행됩니다.
+
+**활성화 조건**
+
+- `.claude/settings.json`의 `hooks`에 이벤트·스크립트 연결 정의
+- 경로는 `$CLAUDE_PROJECT_DIR`를 사용해 `claude/` 작업 루트 기준으로 해석
+- 동작하는 `python3` 필요
+
+**지원 이벤트 및 현재 hook**
+
+| 이벤트             | Hook 파일                     | 동작                                               |
+| ------------------ | ----------------------------- | -------------------------------------------------- |
+| `SessionStart`     | `session_start_context.py`    | 분리된 workspace 구조·최종 응답 기준 컨텍스트 주입 |
+| `PreToolUse` (Bash) | `pre_tool_use_policy.py`     | `rm -rf /`, `git reset --hard` 등 파괴적 명령 차단, publish 계열 경고 |
+| `UserPromptSubmit` | `user_prompt_submit_guard.py` | 프롬프트 내 API 키·private key 패턴 감지 시 차단    |
+| `Stop`             | `stop_quality_gate.py`        | 변경 파일·검증 상태 누락 시 보완 요청              |
+
+`../codex/.codex/hooks/`의 Codex 훅과 동일한 이벤트 스키마를 사용하며, 경로·문구만 Claude 작업 루트에 맞췄습니다. 훅 동작을 바꾸면 스크립트와 이 표를 함께 갱신합니다.
+
+---
+
+## 변경 위치 가이드
+
+| 바꾸려는 것              | 수정 위치                       | 같이 확인할 문서                |
+| ------------------------ | ------------------------------- | ------------------------------- |
+| 기본 Claude 작업 규칙    | `CLAUDE.md`                     | 이 문서의 적용된 규칙 섹션      |
+| 세부 코드 작성 rule      | `.claude/rules/*.md`            | `CLAUDE.md`의 Rule Files        |
+| 반복 작업 command        | `.claude/commands/*.md`         | 이 문서의 Commands 섹션         |
+| 역할별 subagent          | `.claude/agents/*.md`           | 이 문서의 Subagents 섹션        |
+| lifecycle hook 연결      | `.claude/settings.json`         | 이 문서의 Hooks 섹션            |
+| hook 실제 정책           | `.claude/hooks/*.py`            | `.claude/settings.json`         |
 
 ---
 
