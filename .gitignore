@@ -4,13 +4,24 @@
 # Python (hook scripts)
 __pycache__/
 *.py[cod]
+.venv/
+venv/
 
 # Editor / IDE
 *.swp
 .idea/
+.vscode/
 
 # Node
 node_modules/
 
 # Logs
 *.log
+
+# Local agent settings (user-specific)
+settings.local.json
+.claude/settings.local.json
+
+# Env / secrets
+.env
+.env.local
