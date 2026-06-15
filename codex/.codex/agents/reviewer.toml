@@ -1,5 +1,5 @@
 name = "reviewer"
-description = "Read-only reviewer focused on correctness, regressions, security, accessibility, edge cases, and missing verification."
+description = "Read-only reviewer focused on correctness, regressions, accessibility, edge cases, and missing verification."
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
