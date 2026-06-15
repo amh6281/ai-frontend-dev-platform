@@ -11,6 +11,14 @@ codex/
 ├── AGENTS.md              # Codex 기본 작업 규칙
 ├── AGENTS.kr.md           # 한국어 참고 문서 (사람용)
 ├── .agents/skills/        # Repo-local Codex skills
+│   ├── git-commit/
+│   ├── create-pr/
+│   ├── create-pr-kr/
+│   ├── sync-pr/
+│   ├── review/
+│   ├── refactor/
+│   ├── verify/
+│   └── workspace-doc-sync/
 └── .codex/
     ├── config.toml        # 공통 설정
     ├── hooks.json         # Lifecycle hook 설정
@@ -137,12 +145,22 @@ Skill instructions...
 | `references/`        | 필요할 때만 읽는 상세 참고 자료              | 선택      |
 | `assets/`            | skill이 출력물에 사용할 템플릿·리소스        | 선택      |
 
-**포함된 샘플 skill**
+**포함된 skill**
 
-- `git-commit` — staged changes 기준 커밋 메시지를 만들고 커밋 후 push 여부를 확인
-- `workspace-doc-sync` — 폴더 구조 변경 후 README·AGENTS·hooks·skills 문서를 실제 구조에 맞게 동기화
+| Skill                | 호출            | 역할                                                                |
+| -------------------- | --------------- | ------------------------------------------------------------------- |
+| `git-commit`         | `$git-commit`   | staged changes 기준 커밋 메시지를 만들고 커밋 후 push 여부를 확인    |
+| `create-pr`          | `$create-pr`    | git 변경을 분석해 커밋·PR을 생성하고 PR을 자동 생성 또는 업데이트    |
+| `create-pr-kr`       | `$create-pr-kr` | 한국어 팀 컨벤션 기준으로 PR 제목·본문을 만들고 PR을 생성·업데이트   |
+| `sync-pr`            | `$sync-pr`      | 현재 브랜치 PR을 생성하거나 push된 커밋 기준으로 기존 PR 본문 갱신   |
+| `review`             | `$review`       | 열린 PR diff를 검토하고 라인 단위 inline review comment 작성        |
+| `refactor`           | `$refactor`     | `AGENTS.md` 기준으로 리팩토링 포인트를 제안하고 승인 후 코드 수정    |
+| `verify`             | `$verify`       | lint·type·build 품질 검증을 실행하고 결과를 요약                     |
+| `workspace-doc-sync` | `$workspace-doc-sync` | 폴더 구조 변경 후 README·AGENTS·hooks·skills 문서를 실제 구조에 맞게 동기화 |
 
 각 skill의 `SKILL.md`가 실제 instruction이며, `SKILL.kr.md`는 사람이 읽기 위한 한국어 참고본입니다. `agents/openai.yaml`은 skill 목록에서 보이는 이름과 기본 프롬프트 같은 표시용 메타데이터를 담습니다.
+
+`create-pr`·`create-pr-kr`·`sync-pr`·`review`·`refactor`·`verify`는 Claude/Cursor의 동일 워크플로우 command와 동작을 맞춘 skill입니다.
 
 ---
 

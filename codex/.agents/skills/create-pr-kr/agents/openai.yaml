@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create PR (KR)"
+  short_description: "Run the Korean-convention PR workflow and create or update the PR"
+  default_prompt: "Use $create-pr-kr to analyze the diff, build a Korean commit title and PR body following the team convention, and create or update the PR automatically."

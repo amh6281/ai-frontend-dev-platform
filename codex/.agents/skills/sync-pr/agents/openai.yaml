@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync PR"
+  short_description: "Create or update the current branch's pull request from pushed commits"
+  default_prompt: "Use $sync-pr to create a PR for the current branch or update the existing PR body from the latest pushed commits."

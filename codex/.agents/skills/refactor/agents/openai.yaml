@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactor"
+  short_description: "Propose standards-based refactors and apply them after approval"
+  default_prompt: "Use $refactor to analyze the target files against codex/AGENTS.md, show a refactor plan, and apply changes only after approval."

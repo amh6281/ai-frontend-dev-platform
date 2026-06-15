@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create PR"
+  short_description: "Analyze changes, commit, and create or update a pull request"
+  default_prompt: "Use $create-pr to analyze the current changes, generate a commit and PR following the team convention, and create or update the PR."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify"
+  short_description: "Run lint, type, and build checks and summarize results"
+  default_prompt: "Use $verify to run the project's lint, type, and build checks and summarize the results."
