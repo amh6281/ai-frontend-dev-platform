@@ -12,8 +12,8 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Claude subagent definitions live in `/claude/.claude/agents/`.
 - Claude settings and hook wiring live in `/claude/.claude/settings.json`.
 - Claude lifecycle hook scripts live in `/claude/.claude/hooks/`.
-- Cursor code quality, TypeScript, React, testing, accessibility, and LLM behavior rules have been adapted into Claude rule files.
-- Cursor commands have been adapted into Claude command files.
+- Claude rule files cover code quality, TypeScript, React, FSD architecture, testing, accessibility, and LLM behavior.
+- Repeatable workflows are provided as Claude command files under `/claude/.claude/commands/`.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
 - Codex role-based agents have been adapted into Claude subagent files under `/claude/.claude/agents/` with kebab-case names.
 - If a future override file is introduced for Claude workflows, document its precedence here before relying on it.
@@ -23,6 +23,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/rules/code-quality.md` — code quality, workflow, comments, maintenance, and performance rules.
 - `.claude/rules/typescript.md` — TypeScript type safety and API conventions.
 - `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
+- `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.
 - `.claude/rules/accessibility.md` — semantic HTML, names, keyboard, focus, announcements, contrast, and verification.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
 - `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
@@ -144,6 +145,18 @@ Hooks require a working `python3`. They are adapted from the Codex hooks in `../
 - Prefer controlled form fields when validation, formatting, or conditional UI depends on the value.
 - Prevent duplicate submits during pending states.
 - Handle async event failures with visible user feedback.
+
+## Feature-Sliced Design (FSD)
+
+- Decide which layer a module belongs to before writing it.
+- Use the layer order `app > pages > widgets > features > entities > shared`; a module may import only from layers strictly below it.
+- Never let a lower layer import a higher layer, and forbid sideways imports between slices on the same layer.
+- When sibling slices need shared logic, lift it to a lower layer (`shared`, or `entities` for domain logic) instead of importing sideways.
+- Expose each slice and segment through an `index.ts` Public API and import other slices only through it, never their internal files.
+- Organize a slice into `ui`, `model`, `api`, `lib`, and `config` segments by technical purpose.
+- Colocate component-specific state, types, hooks, and helpers with the code that uses them.
+- Extract to `shared` only when logic is domain-agnostic and duplicated across at least three real call sites; prefer `entities` for reused domain logic.
+- Match existing FSD conventions before introducing new patterns, and avoid forcing a full restructure as part of an unrelated task.
 
 ## Accessibility
 

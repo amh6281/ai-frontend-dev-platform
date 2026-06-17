@@ -47,6 +47,18 @@ Codex의 실제 instruction discovery에는 사용되지 않습니다.
 - 타입 전용 import에는 `import type`을 사용합니다.
 - 가드나 안전한 narrowing으로 표현 가능한 경우 무리한 assertion을 피합니다.
 
+## Feature-Sliced Design (FSD)
+
+- 모듈을 작성하기 전에 어느 레이어에 속하는지 먼저 정합니다.
+- 레이어 순서는 `app > pages > widgets > features > entities > shared`이며, 모듈은 자신보다 엄격히 아래에 있는 레이어만 import할 수 있습니다.
+- 하위 레이어가 상위 레이어를 import하지 않게 하고, 같은 레이어의 슬라이스끼리 옆으로 import하는 것도 금지합니다.
+- 같은 레이어의 슬라이스가 공통 로직을 필요로 하면, 옆으로 import하는 대신 하위 레이어(`shared`, 도메인 로직이면 `entities`)로 내립니다.
+- 모든 슬라이스와 세그먼트는 `index.ts` Public API로 노출하고, 다른 슬라이스는 내부 파일이 아니라 Public API를 통해서만 import합니다.
+- 슬라이스 내부는 기술적 목적에 따라 `ui`, `model`, `api`, `lib`, `config` 세그먼트로 구성합니다.
+- 컴포넌트 전용 상태, 타입, 훅, 헬퍼는 이를 사용하는 코드와 같은 위치에 둡니다.
+- 도메인에 종속되지 않으면서 실제 호출 지점이 3곳 이상에서 중복될 때만 `shared`로 추출하고, 재사용되는 도메인 로직은 `entities`를 우선합니다.
+- 새 패턴을 도입하기 전에 기존 FSD 컨벤션을 먼저 따르고, 무관한 작업에서 전체 구조를 강제로 재편하지 않습니다.
+
 ## 접근성
 
 - 일반 컨테이너보다 시맨틱 엘리먼트를 선호합니다.

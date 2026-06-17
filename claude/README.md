@@ -32,6 +32,7 @@ claude/
 │   ├── rules/
 │   │   ├── accessibility.md
 │   │   ├── code-quality.md
+│   │   ├── fsd-architecture.md
 │   │   ├── karpathy-guidelines.md
 │   │   ├── react.md
 │   │   ├── testing.md
@@ -65,12 +66,13 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 ## 적용된 규칙
 
 `CLAUDE.md`에는 Claude 워크플로우용 기본 작업 규칙과 rule 파일 목록이 포함되어 있습니다.
-세부 규칙은 Cursor 쪽 rules를 참고해 Claude용 Markdown 파일로 옮겼습니다.
+세부 규칙은 Claude용 Markdown 파일로 `.claude/rules/`에서 관리합니다.
 
 | 파일 | 내용 |
 | ---- | ---- |
 | `.claude/rules/accessibility.md` | 시맨틱, 키보드, 포커스, 이름, contrast, responsive |
 | `.claude/rules/code-quality.md` | 작업 범위, 검증, 명명, 책임 분리, 중복 제거, 성능 |
+| `.claude/rules/fsd-architecture.md` | FSD 레이어 계층, import 방향, public API, 슬라이스 구조, shared 추출 |
 | `.claude/rules/karpathy-guidelines.md` | 단순성, surgical change, 가정 명시, 검증 목표 |
 | `.claude/rules/react.md` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
 | `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
@@ -80,7 +82,7 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 
 ## Commands
 
-Cursor command를 Claude용 slash command 문서로 옮겼습니다. Claude에서 사용할 때는 `claude/`를 작업 루트로 열고 `.claude/commands/`의 문서를 기준으로 실행합니다.
+반복 workflow는 Claude용 slash command 문서로 관리합니다. Claude에서 사용할 때는 `claude/`를 작업 루트로 열고 `.claude/commands/`의 문서를 기준으로 실행합니다.
 
 | 파일 | 역할 |
 | ---- | ---- |

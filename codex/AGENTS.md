@@ -45,6 +45,18 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Use `import type` for type-only imports.
 - Avoid unsafe assertions when a guard or safe narrowing can express the same intent.
 
+## Feature-Sliced Design (FSD)
+
+- Decide which layer a module belongs to before writing it.
+- Use the layer order `app > pages > widgets > features > entities > shared`; a module may import only from layers strictly below it.
+- Never let a lower layer import a higher layer, and forbid sideways imports between slices on the same layer.
+- When sibling slices need shared logic, lift it to a lower layer (`shared`, or `entities` for domain logic) instead of importing sideways.
+- Expose each slice and segment through an `index.ts` Public API and import other slices only through it, never their internal files.
+- Organize a slice into `ui`, `model`, `api`, `lib`, and `config` segments by technical purpose.
+- Colocate component-specific state, types, hooks, and helpers with the code that uses them.
+- Extract to `shared` only when logic is domain-agnostic and duplicated across at least three real call sites; prefer `entities` for reused domain logic.
+- Match existing FSD conventions before introducing new patterns, and avoid forcing a full restructure as part of an unrelated task.
+
 ## Accessibility
 
 - Prefer semantic elements over generic containers.
