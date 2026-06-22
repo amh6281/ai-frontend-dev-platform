@@ -35,6 +35,7 @@ claude/
 │   │   ├── fsd-architecture.md
 │   │   ├── karpathy-guidelines.md
 │   │   ├── react.md
+│   │   ├── security.md
 │   │   ├── testing.md
 │   │   └── typescript.md
 │   ├── hooks/
@@ -75,6 +76,7 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 | `.claude/rules/fsd-architecture.md` | FSD 레이어 계층, import 방향, public API, 슬라이스 구조, shared 추출 |
 | `.claude/rules/karpathy-guidelines.md` | 단순성, surgical change, 가정 명시, 검증 목표 |
 | `.claude/rules/react.md` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
+| `.claude/rules/security.md` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
 | `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
 | `.claude/rules/typescript.md` | 타입 안정성, union, guard, import type, `satisfies` |
 

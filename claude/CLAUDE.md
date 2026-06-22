@@ -25,6 +25,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
 - `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.
 - `.claude/rules/accessibility.md` — semantic HTML, names, keyboard, focus, announcements, contrast, and verification.
+- `.claude/rules/security.md` — secrets, untrusted input and rendering, auth and access control, storage, logging, dependencies, and verification.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
 - `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
 
