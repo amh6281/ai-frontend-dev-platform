@@ -34,6 +34,13 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Extract repeated logic instead of copying behavior across files.
 - Avoid speculative cleanup unrelated to the task.
 
+## Performance
+
+- Avoid unnecessary O(n^2) operations; prefer `Map` or `Set` for repeated lookups.
+- Keep expensive calculations out of render paths.
+- Use memoization only when it prevents a measured or clearly plausible cost.
+- Prefer pagination, filtering, or virtualization for large collections.
+
 ## TypeScript And React
 
 - Never introduce `any`.
@@ -44,6 +51,26 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Add explicit return types to exported utilities and shared helpers.
 - Use `import type` for type-only imports.
 - Avoid unsafe assertions when a guard or safe narrowing can express the same intent.
+
+## React
+
+- Keep components focused on one responsibility: layout, data wiring, or reusable UI behavior.
+- Prefer composition over large prop-driven components with many conditional branches.
+- Do not introduce shared components until at least two real call sites need the same behavior.
+- Keep domain-specific components close to their feature unless the project already has a shared component convention.
+- Prefer existing design-system primitives, tokens, variants, and interaction patterns before creating new UI primitives.
+- Store the minimum state needed to render the UI.
+- Derive cheap deterministic values during render instead of duplicating them in state.
+- Prefer discriminated unions for async and multi-step UI states.
+- Keep loading, empty, error, success, disabled, and optimistic states explicit when users can observe them.
+- Do not use `useEffect` for values that can be derived during render.
+- Keep effects tied to external synchronization such as subscriptions, timers, network calls, browser APIs, or imperative integrations.
+- Include all required effect dependencies; restructure code instead of suppressing dependency rules.
+- Clean up subscriptions, timers, listeners, and async work that can outlive the component.
+- Keep list keys stable and tied to item identity, not array index, when order can change.
+- Prefer controlled form fields when validation, formatting, or conditional UI depends on the value.
+- Prevent duplicate submits during pending states.
+- Handle async event failures with visible user feedback.
 
 ## Feature-Sliced Design (FSD)
 
