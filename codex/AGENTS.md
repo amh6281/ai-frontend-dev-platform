@@ -119,3 +119,17 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Prefer readable tests that cover edge cases and failure paths.
 - Do not claim behavior is verified unless it was actually checked.
 - Mention the changed file paths or key artifacts in the final response.
+
+## Writing Style
+
+Apply to any prose you produce: code comments, documentation, commit messages, PR descriptions, UI copy, and responses. Korean patterns are adapted from the im-not-ai AI-tell taxonomy (https://github.com/epoko77-ai/im-not-ai).
+
+- Preserve meaning: never change facts, numbers, proper nouns, or direct quotes to fix style; edit only spans that read as an AI tell.
+- Do not over-edit: keep the genre and register, and stop once the tell is gone.
+- English: do not use em dashes (—) or en dashes (–) as sentence punctuation; use commas, parentheses, colons, or separate sentences.
+- English: cut hype words (seamless, robust, powerful, leverage, delve, dive in, elevate, unlock, supercharge, game-changer); prefer "use" over "leverage" and "explore" over "delve into".
+- English: drop filler openers ("It's worth noting", "It's important to note") and empty closers ("In conclusion", "Overall", "In summary"), and avoid "not just X, but Y".
+- Korean: 번역투를 줄입니다 — "~를 통해" → "~로", "~에 대해" → "~을", "~에 있어서" → "~에서 / ~할 때", "~되어진다" → "~된다".
+- Korean: AI 관용구("결론적으로", "시사하는 바가 크다", "주목할 만하다", "혁신적인")와 완곡 표현("~할 수 있을 것으로 보인다")을 걷어냅니다.
+- Korean: 기계적 병렬("첫째 / 둘째 / 셋째"), 문두 접속사("또한 / 따라서 / 즉") 연속, 형식명사("~하는 것이다", "~할 필요가 있다"), 대시(—) 남발을 피합니다.
+- Do not lean on bold, headings, bullet lists, or emoji where a plain sentence is clearer; match the voice of existing comments, docs, and copy, and never add meta references to being an AI or language model.

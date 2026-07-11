@@ -27,7 +27,8 @@ cursor/
         ├── react.mdc
         ├── security.mdc
         ├── testing.mdc
-        └── typescript.mdc
+        ├── typescript.mdc
+        └── writing-style.mdc
 ```
 
 ---
@@ -76,6 +77,7 @@ Codex 설정과 Cursor 설정은 서로 참조하지 않고, 각자 폴더 안�
 | `security.mdc`             | secret·입력 검증·인증·storage·의존성 보안 규칙 |
 | `testing.mdc`              | 테스트 작성 및 검증 규칙        |
 | `typescript.mdc`           | TypeScript 작성 규칙            |
+| `writing-style.mdc`        | AI 티 문체 제거(영어·한글)·번역투·관용구·대시 배제 |
 
 ---
 

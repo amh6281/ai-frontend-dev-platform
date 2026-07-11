@@ -37,7 +37,8 @@ claude/
 │   │   ├── react.md
 │   │   ├── security.md
 │   │   ├── testing.md
-│   │   └── typescript.md
+│   │   ├── typescript.md
+│   │   └── writing-style.md
 │   ├── hooks/
 │   │   ├── session_start_context.py
 │   │   ├── pre_tool_use_policy.py
@@ -79,6 +80,7 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 | `.claude/rules/security.md` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
 | `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
 | `.claude/rules/typescript.md` | 타입 안정성, union, guard, import type, `satisfies` |
+| `.claude/rules/writing-style.md` | AI 티 문체 제거(영어·한글), 번역투·관용구·완곡·대시·과장 표현 배제 |
 
 ---
 

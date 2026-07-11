@@ -90,6 +90,7 @@ CODEX_RULE_PATTERNS = {
     "security": r"## Security",
     "testing": r"## Verification",
     "typescript": r"## TypeScript",
+    "writing-style": r"## Writing Style",
 }
 for slug in sorted(claude_rules):
     pattern = CODEX_RULE_PATTERNS.get(slug)
