@@ -130,22 +130,25 @@ report(
     },
 )
 
-# 4) Agents — claude & codex (cursor has no agents by design).
-print("\nagents (claude <-> codex):")
+# 4) Agents — must exist in all three.
+print("\nagents (claude <-> cursor <-> codex):")
 report(
     "agents",
     {
         "claude": slugs_from_files(ROOT / "claude/.claude/agents", ".md"),
+        "cursor": slugs_from_files(ROOT / "cursor/.cursor/agents", ".md"),
         "codex": slugs_from_files(ROOT / "codex/.codex/agents", ".toml"),
     },
 )
 
-# 5) Hooks — claude & codex.
-print("\nhooks (claude <-> codex):")
+# 5) Hooks — must exist in all three. Event names differ per platform, so parity
+#    is tracked on the script filenames the wiring points at.
+print("\nhooks (claude <-> cursor <-> codex):")
 report(
     "hooks",
     {
         "claude": slugs_from_files(ROOT / "claude/.claude/hooks", ".py"),
+        "cursor": slugs_from_files(ROOT / "cursor/.cursor/hooks", ".py"),
         "codex": slugs_from_files(ROOT / "codex/.codex/hooks", ".py"),
     },
 )
