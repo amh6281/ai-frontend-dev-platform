@@ -47,7 +47,10 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 │   └── README.md
 └── cursor/         # Cursor 작업 루트
     └── .cursor/
+        ├── agents/
         ├── commands/
+        ├── hooks/
+        ├── hooks.json
         └── rules/
 ```
 
@@ -61,7 +64,7 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 | ------ | --------- | ---------------------- | ------------------------------------- |
 | Codex  | `codex/`  | `codex/README.md`      | `codex/AGENTS.md`, `codex/.codex/`    |
 | Claude | `claude/` | `claude/README.md`     | `claude/CLAUDE.md`, `claude/.claude/commands/`, `claude/.claude/rules/`, `claude/.claude/agents/`, `claude/.claude/hooks/`, `claude/.claude/settings.json` |
-| Cursor | `cursor/` | `cursor/README.md`     | `cursor/.cursor/commands/`, `cursor/.cursor/rules/` |
+| Cursor | `cursor/` | `cursor/README.md`     | `cursor/.cursor/commands/`, `cursor/.cursor/rules/`, `cursor/.cursor/agents/`, `cursor/.cursor/hooks/`, `cursor/.cursor/hooks.json` |
 
 예를 들어 Codex 규칙을 바꿀 때는 `codex/` 안의 문서와 설정만 수정하고, Claude rule을 바꿀 때는 `claude/` 안의 문서와 설정만 수정합니다. Cursor command를 바꿀 때는 `cursor/` 안의 문서와 설정만 수정합니다.
 
@@ -109,6 +112,13 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 | ------------------------------ | ------------------- |
 | `cursor/.cursor/commands/*.md` | Cursor command 문서 |
 | `cursor/.cursor/rules/*.mdc`   | Cursor rule 문서    |
+| `cursor/.cursor/agents/*.md`   | 역할별 Cursor subagent 정의 |
+| `cursor/.cursor/hooks.json`    | Hook 연결 설정      |
+| `cursor/.cursor/hooks/*.py`    | lifecycle hook 실행 스크립트 |
+
+**Subagents:** Claude subagent 10종과 이름·본문이 같고 frontmatter만 Cursor 스키마(`readonly`)에 맞춥니다.
+
+**Hooks:** 같은 정책 4종을 Cursor 이벤트 이름(`sessionStart`, `beforeShellExecution`, `beforeSubmitPrompt`, `stop`)으로 옮깁니다. 입출력 스키마가 Claude·Codex와 달라 스크립트를 그대로 복사하지 않고 이벤트별로 다시 썼습니다. 차이점은 `cursor/README.md`에 정리되어 있습니다.
 
 ---
 
@@ -117,6 +127,7 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 - 저장소 루트에는 도구별 설정 파일을 두지 않습니다.
 - 새 도구를 추가할 때는 동일한 패턴으로 최상위에 디렉터리를 만들고 그 안에서 독립적으로 구성합니다.
 - Codex 규칙과 Cursor 규칙은 서로를 참조하지 않습니다.
+- 세 도구의 rule·command·agent·hook은 같은 이름으로 유지하고, 플랫폼 스키마 차이는 각 워크스페이스 안에서 흡수합니다.
 
 ---
 
