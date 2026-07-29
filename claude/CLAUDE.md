@@ -12,7 +12,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Claude subagent definitions live in `/claude/.claude/agents/`.
 - Claude settings and hook wiring live in `/claude/.claude/settings.json`.
 - Claude lifecycle hook scripts live in `/claude/.claude/hooks/`.
-- Claude rule files cover code quality, TypeScript, React, FSD architecture, testing, accessibility, and LLM behavior.
+- Claude rule files cover code quality, TypeScript, React, FSD architecture, testing, accessibility, security, writing style, and LLM behavior.
 - Repeatable workflows are provided as Claude command files under `/claude/.claude/commands/`.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
 - Codex role-based agents have been adapted into Claude subagent files under `/claude/.claude/agents/` with kebab-case names.
@@ -20,14 +20,15 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 
 ## Rule Files
 
-- `.claude/rules/code-quality.md` — code quality, workflow, comments, maintenance, and performance rules.
-- `.claude/rules/typescript.md` — TypeScript type safety and API conventions.
-- `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
-- `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.
 - `.claude/rules/accessibility.md` — semantic HTML, names, keyboard, focus, announcements, contrast, and verification.
+- `.claude/rules/code-quality.md` — code quality, workflow, comments, maintenance, and performance rules.
+- `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.
+- `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
+- `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
 - `.claude/rules/security.md` — secrets, untrusted input and rendering, auth and access control, storage, logging, dependencies, and verification.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
-- `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
+- `.claude/rules/typescript.md` — TypeScript type safety and API conventions.
+- `.claude/rules/writing-style.md` — English and Korean AI tells to avoid in comments, docs, commit messages, PR descriptions, UI copy, and responses.
 
 ## Commands
 
@@ -210,3 +211,17 @@ Hooks require a working `python3`. They are adapted from the Codex hooks in `../
 - Clean up mocks, listeners, and global mutations between tests.
 - Do not claim behavior is verified unless it was actually checked.
 - Mention the changed file paths or key artifacts in the final response.
+
+## Writing Style
+
+Apply to any prose you produce: code comments, documentation, commit messages, PR descriptions, UI copy, and responses. Korean patterns are adapted from the im-not-ai AI-tell taxonomy (https://github.com/epoko77-ai/im-not-ai).
+
+- Preserve meaning: never change facts, numbers, proper nouns, or direct quotes to fix style; edit only spans that read as an AI tell.
+- Do not over-edit: keep the genre and register, and stop once the tell is gone.
+- English: do not use em dashes (—) or en dashes (–) as sentence punctuation; use commas, parentheses, colons, or separate sentences.
+- English: cut hype words (seamless, robust, powerful, leverage, delve, dive in, elevate, unlock, supercharge, game-changer); prefer "use" over "leverage" and "explore" over "delve into".
+- English: drop filler openers ("It's worth noting", "It's important to note") and empty closers ("In conclusion", "Overall", "In summary"), and avoid "not just X, but Y".
+- Korean: 번역투를 줄입니다. "~를 통해" → "~로", "~에 대해" → "~을", "~에 있어서" → "~에서 / ~할 때", "~되어진다" → "~된다".
+- Korean: AI 관용구("결론적으로", "시사하는 바가 크다", "주목할 만하다", "혁신적인")와 완곡 표현("~할 수 있을 것으로 보인다")을 걷어냅니다.
+- Korean: 기계적 병렬("첫째 / 둘째 / 셋째"), 문두 접속사("또한 / 따라서 / 즉") 연속, 형식명사("~하는 것이다", "~할 필요가 있다"), 대시(—) 남발을 피합니다.
+- Do not lean on bold, headings, bullet lists, or emoji where a plain sentence is clearer; match the voice of existing comments, docs, and copy, and never add meta references to being an AI or language model.
