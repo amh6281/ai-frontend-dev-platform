@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Check that rules / commands / agents / hooks stay in sync across the
-claude, cursor, and codex workspaces.
+"""Check that rules / embedded rules / commands / agents / hooks stay in sync
+across the claude, cursor, and codex workspaces.
 
 Run after editing any platform's config (or wire into pre-commit / CI):
 
     python3 scripts/check-parity.py
 
-Exits non-zero if a hard-parity dimension drifts. Soft checks (codex embedded
-rules, Korean variants) only print warnings and never fail the run.
+Exits non-zero if a hard-parity dimension drifts. Korean variants are a soft
+check: they only print warnings and never fail the run.
 """
 
 from __future__ import annotations
@@ -22,6 +22,20 @@ ROOT = Path(__file__).resolve().parent.parent
 #   - claude/cursor use "commit"; codex skill dir is "git-commit"
 #   - claude agents use hyphens; codex agents use underscores (handled by normalize)
 ALIASES = {"git-commit": "commit"}
+
+# codex/AGENTS.md and claude/CLAUDE.md inline the rule set instead of linking to
+# rule files. Each canonical rule slug maps to a pattern proving it is covered.
+EMBEDDED_RULE_PATTERNS = {
+    "accessibility": r"## Accessibility",
+    "code-quality": r"## Implementation Standards",
+    "fsd-architecture": r"## Feature-Sliced Design",
+    "karpathy-guidelines": r"smallest defensible change",
+    "react": r"## React",
+    "security": r"## Security",
+    "testing": r"## Verification",
+    "typescript": r"## TypeScript",
+    "writing-style": r"## Writing Style",
+}
 
 
 def normalize(name: str) -> str:
@@ -65,6 +79,26 @@ def report(dimension: str, sets: dict[str, set[str]]) -> None:
         print(f"  [OK]    {dimension}: {len(union)} in sync ({present})")
 
 
+def report_embedded(dimension: str, targets: list[str], slugs: set[str]) -> None:
+    """Hard check: every canonical rule must be inlined in each instruction file."""
+    global failures
+    drift = False
+    for rel in targets:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        for slug in sorted(slugs):
+            pattern = EMBEDDED_RULE_PATTERNS.get(slug)
+            if pattern is None:
+                drift = True
+                print(f"  [DRIFT] {dimension}: '{slug}' has no coverage mapping (needed for {rel})")
+            elif not re.search(pattern, text):
+                drift = True
+                print(f"  [DRIFT] {dimension}: '{slug}' not found in {rel} (pattern /{pattern}/)")
+    if drift:
+        failures += 1
+    else:
+        print(f"  [OK]    {dimension}: {len(slugs)} covered in {', '.join(targets)}")
+
+
 def warn(message: str) -> None:
     print(f"  [WARN]  {message}")
 
@@ -79,27 +113,13 @@ claude_rules = slugs_from_files(ROOT / "claude/.claude/rules", ".md")
 cursor_rules = slugs_from_files(ROOT / "cursor/.cursor/rules", ".mdc")
 report("rules", {"claude": claude_rules, "cursor": cursor_rules})
 
-# codex folds rules into AGENTS.md; verify each canonical rule has coverage.
-agents_md = (ROOT / "codex/AGENTS.md").read_text(encoding="utf-8")
-CODEX_RULE_PATTERNS = {
-    "accessibility": r"## Accessibility",
-    "code-quality": r"## Implementation Standards",
-    "fsd-architecture": r"## Feature-Sliced Design",
-    "karpathy-guidelines": r"smallest defensible change",
-    "react": r"## React",
-    "security": r"## Security",
-    "testing": r"## Verification",
-    "typescript": r"## TypeScript",
-    "writing-style": r"## Writing Style",
-}
-for slug in sorted(claude_rules):
-    pattern = CODEX_RULE_PATTERNS.get(slug)
-    if pattern is None:
-        warn(f"rules: '{slug}' has no codex AGENTS.md coverage mapping")
-    elif not re.search(pattern, agents_md):
-        warn(f"rules: '{slug}' not found in codex AGENTS.md (pattern /{pattern}/)")
+# 2) Embedded rules — codex and claude inline the rule set into their top-level
+#    instruction file, so filename parity above cannot see them. Both files carry
+#    the same sections; one pattern map covers both.
+print("\nembedded rules (codex AGENTS.md <-> claude CLAUDE.md):")
+report_embedded("embedded rules", ["codex/AGENTS.md", "claude/CLAUDE.md"], claude_rules)
 
-# 2) Commands / skills — must exist in all three.
+# 3) Commands / skills — must exist in all three.
 print("\ncommands (claude <-> cursor <-> codex):")
 report(
     "commands",
@@ -110,7 +130,7 @@ report(
     },
 )
 
-# 3) Agents — claude & codex (cursor has no agents by design).
+# 4) Agents — claude & codex (cursor has no agents by design).
 print("\nagents (claude <-> codex):")
 report(
     "agents",
@@ -120,7 +140,7 @@ report(
     },
 )
 
-# 4) Hooks — claude & codex.
+# 5) Hooks — claude & codex.
 print("\nhooks (claude <-> codex):")
 report(
     "hooks",
@@ -130,7 +150,7 @@ report(
     },
 )
 
-# 5) Korean variants — codex completeness (soft).
+# 6) Korean variants — codex completeness (soft).
 print("\nkorean variants (codex, soft):")
 if not (ROOT / "codex/AGENTS.kr.md").is_file():
     warn("codex/AGENTS.kr.md is missing")

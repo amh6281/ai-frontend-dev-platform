@@ -130,4 +130,5 @@ python3 scripts/check-parity.py
 ```
 
 - 어느 한 플랫폼에서 항목이 빠지면 `[DRIFT]` 를 출력하고 비정상 종료(exit 1)합니다.
-- codex의 임베드된 규칙(`AGENTS.md`)과 한국어판(`*.kr.md`) 누락은 `[WARN]` 으로만 알립니다.
+- `codex/AGENTS.md` 와 `claude/CLAUDE.md` 는 규칙을 파일 링크 대신 본문에 임베드하므로, 규칙별 섹션이 두 파일에 모두 있는지 따로 검사합니다. 여기서 빠져도 `[DRIFT]` 입니다.
+- 한국어판(`*.kr.md`) 누락은 `[WARN]` 으로만 알립니다.
