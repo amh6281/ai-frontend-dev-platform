@@ -37,6 +37,7 @@ claude/
 │   │   ├── performance.md
 │   │   ├── react.md
 │   │   ├── security.md
+│   │   ├── styling.md
 │   │   ├── testing.md
 │   │   ├── typescript.md
 │   │   └── writing-style.md
@@ -80,6 +81,7 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 | `.claude/rules/performance.md` | 측정 우선, 렌더링 비용, 데이터 로딩, 번들·에셋, 체감 성능, 검증 |
 | `.claude/rules/react.md` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
 | `.claude/rules/security.md` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
+| `.claude/rules/styling.md` | 디자인 토큰, 스타일 경계, 레이아웃·간격, 반응형, 모션, 시각 상태 |
 | `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
 | `.claude/rules/typescript.md` | 타입 안정성, union, guard, import type, `satisfies` |
 | `.claude/rules/writing-style.md` | AI 티 문체 제거(영어·한글), 번역투·관용구·완곡·대시·과장 표현 배제 |

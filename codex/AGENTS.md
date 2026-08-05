@@ -78,6 +78,21 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 - Prevent duplicate submits during pending states.
 - Handle async event failures with visible user feedback.
 
+## Styling
+
+- Use existing design tokens for color, spacing, typography, radius, shadow, z-index, motion, and breakpoints.
+- Do not hard-code raw values when a token expresses the same intent.
+- Follow the project's existing styling approach and do not introduce a second one.
+- Keep styles next to the component they belong to, and express states through variants or data attributes rather than deeply nested selectors.
+- Keep specificity flat; avoid `!important` and ID selectors.
+- Do not style another component by reaching into its internals; expose a variant or slot instead.
+- Prefer layout containers and `gap` over margins that leak across component boundaries.
+- Design mobile-first, use fluid sizing before adding another breakpoint, and keep z-index values on a defined scale.
+- Animate `transform` and `opacity`, keep durations on the token scale, and respect `prefers-reduced-motion`.
+- Define hover, `focus-visible`, active, disabled, loading, selected, and error styles for interactive elements.
+- Never remove focus outlines without an equally visible replacement.
+- Verify theme variants, the smallest supported viewport, and unusually long content.
+
 ## Feature-Sliced Design (FSD)
 
 - Decide which layer a module belongs to before writing it.

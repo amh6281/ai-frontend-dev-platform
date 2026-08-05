@@ -44,6 +44,7 @@ cursor/
         ├── performance.mdc
         ├── react.mdc
         ├── security.mdc
+        ├── styling.mdc
         ├── testing.mdc
         ├── typescript.mdc
         └── writing-style.mdc
@@ -95,6 +96,7 @@ Codex 설정과 Cursor 설정은 서로 참조하지 않고, 각자 폴더 안�
 | `performance.mdc`          | 측정 우선·렌더링 비용·데이터 로딩·번들·체감 성능 |
 | `react.mdc`                | React 컴포넌트·훅 작성 규칙     |
 | `security.mdc`             | secret·입력 검증·인증·storage·의존성 보안 규칙 |
+| `styling.mdc`              | 디자인 토큰·스타일 경계·레이아웃·반응형·모션·시각 상태 |
 | `testing.mdc`              | 테스트 작성 및 검증 규칙        |
 | `typescript.mdc`           | TypeScript 작성 규칙            |
 | `writing-style.mdc`        | AI 티 문체 제거(영어·한글)·번역투·관용구·대시 배제 |

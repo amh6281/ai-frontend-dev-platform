@@ -33,6 +33,7 @@ EMBEDDED_RULE_PATTERNS = {
     "performance": r"## Performance",
     "react": r"## React",
     "security": r"## Security",
+    "styling": r"## Styling",
     "testing": r"## Verification",
     "typescript": r"## TypeScript",
     "writing-style": r"## Writing Style",

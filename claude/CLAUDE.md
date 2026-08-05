@@ -12,7 +12,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Claude subagent definitions live in `/claude/.claude/agents/`.
 - Claude settings and hook wiring live in `/claude/.claude/settings.json`.
 - Claude lifecycle hook scripts live in `/claude/.claude/hooks/`.
-- Claude rule files cover code quality, TypeScript, React, FSD architecture, performance, testing, accessibility, security, writing style, and LLM behavior.
+- Claude rule files cover code quality, TypeScript, React, FSD architecture, styling, performance, testing, accessibility, security, writing style, and LLM behavior.
 - Repeatable workflows are provided as Claude command files under `/claude/.claude/commands/`.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
 - Codex role-based agents have been adapted into Claude subagent files under `/claude/.claude/agents/` with kebab-case names.
@@ -27,6 +27,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/rules/performance.md` — measurement first, rendering cost, data loading, bundle and assets, perceived performance, and verification.
 - `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
 - `.claude/rules/security.md` — secrets, untrusted input and rendering, auth and access control, storage, logging, dependencies, and verification.
+- `.claude/rules/styling.md` — design tokens, component style boundaries, layout and spacing, responsive behavior, motion, and visual states.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
 - `.claude/rules/typescript.md` — TypeScript type safety and API conventions.
 - `.claude/rules/writing-style.md` — English and Korean AI tells to avoid in comments, docs, commit messages, PR descriptions, UI copy, and responses.
@@ -154,6 +155,21 @@ Hooks require a working `python3`. They are adapted from the Codex hooks in `../
 - Prefer controlled form fields when validation, formatting, or conditional UI depends on the value.
 - Prevent duplicate submits during pending states.
 - Handle async event failures with visible user feedback.
+
+## Styling
+
+- Use existing design tokens for color, spacing, typography, radius, shadow, z-index, motion, and breakpoints.
+- Do not hard-code raw values when a token expresses the same intent.
+- Follow the project's existing styling approach and do not introduce a second one.
+- Keep styles next to the component they belong to, and express states through variants or data attributes rather than deeply nested selectors.
+- Keep specificity flat; avoid `!important` and ID selectors.
+- Do not style another component by reaching into its internals; expose a variant or slot instead.
+- Prefer layout containers and `gap` over margins that leak across component boundaries.
+- Design mobile-first, use fluid sizing before adding another breakpoint, and keep z-index values on a defined scale.
+- Animate `transform` and `opacity`, keep durations on the token scale, and respect `prefers-reduced-motion`.
+- Define hover, `focus-visible`, active, disabled, loading, selected, and error styles for interactive elements.
+- Never remove focus outlines without an equally visible replacement.
+- Verify theme variants, the smallest supported viewport, and unusually long content.
 
 ## Feature-Sliced Design (FSD)
 
