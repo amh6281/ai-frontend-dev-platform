@@ -79,25 +79,11 @@ Guidelines for writing clean, maintainable code and efficient development workfl
 
 ## 3) Performance Guidelines
 
-### Avoid Nested Loops
-
-- Avoid unnecessary O(n²) operations
-- Consider using Map or Set for lookups instead of nested iterations
-
-### Avoid Heavy Computation in Render
-
-- Expensive calculations should not run inside render logic
-- Move computations outside render or use memoization
-
-### Prefer Map or Set for Lookups
-
-- Use Map/Set instead of repeated array searches when possible
-- O(1) lookups are preferable to O(n) searches
-
-### Memoize Expensive Calculations
-
-- Use memoization for expensive computations when necessary
-- See react.mdc Performance for React-specific patterns (useMemo, useCallback, React.memo)
+- Avoid unnecessary O(n²) operations; prefer Map or Set over repeated array searches
+- Keep expensive calculations out of render logic
+- Optimize only for a measured or clearly plausible cost
+- See `performance.mdc` for rendering cost, data loading, bundle size, and measurement
+- See `react.mdc` for React-specific patterns (useMemo, useCallback, React.memo)
 
 ---
 

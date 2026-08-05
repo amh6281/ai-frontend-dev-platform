@@ -41,6 +41,7 @@ cursor/
         ├── code-quality.mdc
         ├── fsd-architecture.mdc
         ├── karpathy-guidelines.mdc
+        ├── performance.mdc
         ├── react.mdc
         ├── security.mdc
         ├── testing.mdc
@@ -91,6 +92,7 @@ Codex 설정과 Cursor 설정은 서로 참조하지 않고, 각자 폴더 안�
 | `code-quality.mdc`         | 코드 품질 기준                  |
 | `fsd-architecture.mdc`     | FSD 레이어 계층·import 방향·public API·슬라이스 구조 |
 | `karpathy-guidelines.mdc`  | LLM 코딩 실수 방지 행동 가이드 |
+| `performance.mdc`          | 측정 우선·렌더링 비용·데이터 로딩·번들·체감 성능 |
 | `react.mdc`                | React 컴포넌트·훅 작성 규칙     |
 | `security.mdc`             | secret·입력 검증·인증·storage·의존성 보안 규칙 |
 | `testing.mdc`              | 테스트 작성 및 검증 규칙        |

@@ -30,6 +30,7 @@ EMBEDDED_RULE_PATTERNS = {
     "code-quality": r"## Implementation Standards",
     "fsd-architecture": r"## Feature-Sliced Design",
     "karpathy-guidelines": r"smallest defensible change",
+    "performance": r"## Performance",
     "react": r"## React",
     "security": r"## Security",
     "testing": r"## Verification",

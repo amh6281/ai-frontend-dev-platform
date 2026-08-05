@@ -36,10 +36,16 @@ When Codex starts inside `codex/`, treat this directory as the effective project
 
 ## Performance
 
+- Identify the actual bottleneck before optimizing, and optimize only for a measured or clearly plausible cost.
 - Avoid unnecessary O(n^2) operations; prefer `Map` or `Set` for repeated lookups.
 - Keep expensive calculations out of render paths.
-- Use memoization only when it prevents a measured or clearly plausible cost.
+- Use memoization only when it prevents a measured or clearly plausible cost, and keep referential identity stable for memoized subtrees.
+- Throttle or debounce high-frequency events such as scroll, resize, pointer move, and typing.
 - Prefer pagination, filtering, or virtualization for large collections.
+- Start independent requests in parallel, deduplicate repeated ones, and cancel or ignore stale responses.
+- Check bundle impact before adding a dependency, and split heavy routes, dialogs, editors, and charts behind dynamic imports.
+- Reserve space for async content so loading does not shift layout.
+- State what was measured and the before and after numbers when claiming a performance improvement.
 
 ## TypeScript And React
 

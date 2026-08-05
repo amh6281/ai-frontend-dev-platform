@@ -22,10 +22,10 @@ Use these rules when writing, reviewing, or modifying code.
 
 ## Performance
 
-- Avoid unnecessary O(n^2) operations.
-- Prefer `Map` or `Set` for repeated lookups.
+- Avoid unnecessary O(n^2) operations; prefer `Map` or `Set` for repeated lookups.
 - Keep expensive calculations out of render paths.
-- Memoize only when it prevents a measured or clearly plausible cost.
+- Optimize only for a measured or clearly plausible cost.
+- Follow `performance.md` for rendering cost, data loading, bundle size, and measurement.
 
 ## Comments
 

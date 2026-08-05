@@ -12,7 +12,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - Claude subagent definitions live in `/claude/.claude/agents/`.
 - Claude settings and hook wiring live in `/claude/.claude/settings.json`.
 - Claude lifecycle hook scripts live in `/claude/.claude/hooks/`.
-- Claude rule files cover code quality, TypeScript, React, FSD architecture, testing, accessibility, security, writing style, and LLM behavior.
+- Claude rule files cover code quality, TypeScript, React, FSD architecture, performance, testing, accessibility, security, writing style, and LLM behavior.
 - Repeatable workflows are provided as Claude command files under `/claude/.claude/commands/`.
 - Codex repo-local workflows that are useful for Claude are represented as Claude command files, not as `.claude/skills/`.
 - Codex role-based agents have been adapted into Claude subagent files under `/claude/.claude/agents/` with kebab-case names.
@@ -24,6 +24,7 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 - `.claude/rules/code-quality.md` — code quality, workflow, comments, maintenance, and performance rules.
 - `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.
 - `.claude/rules/karpathy-guidelines.md` — LLM behavior guidance for simplicity, surgical changes, assumptions, and verification goals.
+- `.claude/rules/performance.md` — measurement first, rendering cost, data loading, bundle and assets, perceived performance, and verification.
 - `.claude/rules/react.md` — React component, state, effect, rendering, form, and event rules.
 - `.claude/rules/security.md` — secrets, untrusted input and rendering, auth and access control, storage, logging, dependencies, and verification.
 - `.claude/rules/testing.md` — test intent, placement, UI testing, async reliability, mocks, and verification reporting.
@@ -62,12 +63,12 @@ Read-only subagents are restricted to `Read, Grep, Glob` (plus `WebFetch, WebSea
 
 Lifecycle hooks are wired in `.claude/settings.json` and implemented as scripts in `.claude/hooks/`. They run automatically on the matching event; no command is needed. Paths use `$CLAUDE_PROJECT_DIR` so they resolve against the `claude/` working root.
 
-| Event | Hook script | Behavior |
-| ----- | ----------- | -------- |
-| `SessionStart` | `session_start_context.py` | Inject split-workspace layout and final-response expectations as extra context. |
-| `PreToolUse` (Bash) | `pre_tool_use_policy.py` | Deny destructive shell commands (`rm -rf /`, `git reset --hard`, `mkfs`, …) and warn on publish commands. |
-| `UserPromptSubmit` | `user_prompt_submit_guard.py` | Block prompts containing API key or private key patterns; otherwise add guidance. |
-| `Stop` | `stop_quality_gate.py` | Ask for a follow-up when the final response omits changed files or verification status. |
+| Event               | Hook script                   | Behavior                                                                                                  |
+| ------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `SessionStart`      | `session_start_context.py`    | Inject split-workspace layout and final-response expectations as extra context.                           |
+| `PreToolUse` (Bash) | `pre_tool_use_policy.py`      | Deny destructive shell commands (`rm -rf /`, `git reset --hard`, `mkfs`, …) and warn on publish commands. |
+| `UserPromptSubmit`  | `user_prompt_submit_guard.py` | Block prompts containing API key or private key patterns; otherwise add guidance.                         |
+| `Stop`              | `stop_quality_gate.py`        | Ask for a follow-up when the final response omits changed files or verification status.                   |
 
 Hooks require a working `python3`. They are adapted from the Codex hooks in `../codex/.codex/hooks/` and use the same event schema. When changing hook behavior, update both the script and this table.
 
@@ -106,10 +107,16 @@ Hooks require a working `python3`. They are adapted from the Codex hooks in `../
 
 ## Performance
 
+- Identify the actual bottleneck before optimizing, and optimize only for a measured or clearly plausible cost.
 - Avoid unnecessary O(n^2) operations; prefer `Map` or `Set` for repeated lookups.
 - Keep expensive calculations out of render paths.
-- Use memoization only when it prevents a measured or clearly plausible cost.
+- Use memoization only when it prevents a measured or clearly plausible cost, and keep referential identity stable for memoized subtrees.
+- Throttle or debounce high-frequency events such as scroll, resize, pointer move, and typing.
 - Prefer pagination, filtering, or virtualization for large collections.
+- Start independent requests in parallel, deduplicate repeated ones, and cancel or ignore stale responses.
+- Check bundle impact before adding a dependency, and split heavy routes, dialogs, editors, and charts behind dynamic imports.
+- Reserve space for async content so loading does not shift layout.
+- State what was measured and the before and after numbers when claiming a performance improvement.
 
 ## TypeScript And React
 

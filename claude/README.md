@@ -34,6 +34,7 @@ claude/
 │   │   ├── code-quality.md
 │   │   ├── fsd-architecture.md
 │   │   ├── karpathy-guidelines.md
+│   │   ├── performance.md
 │   │   ├── react.md
 │   │   ├── security.md
 │   │   ├── testing.md
@@ -73,9 +74,10 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 | 파일 | 내용 |
 | ---- | ---- |
 | `.claude/rules/accessibility.md` | 시맨틱, 키보드, 포커스, 이름, contrast, responsive |
-| `.claude/rules/code-quality.md` | 작업 범위, 검증, 명명, 책임 분리, 중복 제거, 성능 |
+| `.claude/rules/code-quality.md` | 작업 범위, 검증, 명명, 책임 분리, 중복 제거 |
 | `.claude/rules/fsd-architecture.md` | FSD 레이어 계층, import 방향, public API, 슬라이스 구조, shared 추출 |
 | `.claude/rules/karpathy-guidelines.md` | 단순성, surgical change, 가정 명시, 검증 목표 |
+| `.claude/rules/performance.md` | 측정 우선, 렌더링 비용, 데이터 로딩, 번들·에셋, 체감 성능, 검증 |
 | `.claude/rules/react.md` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
 | `.claude/rules/security.md` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
 | `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
