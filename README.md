@@ -25,6 +25,7 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 ```
 .
 ├── README.md
+├── CONTRIBUTING.md # 항목 추가 시 함께 고칠 파일 체크리스트
 ├── codex/          # Codex 작업 루트
 │   ├── AGENTS.md
 │   ├── AGENTS.kr.md
@@ -60,11 +61,11 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 
 사용할 AI 도구의 폴더로 이동한 뒤, 그 폴더를 작업 루트처럼 열어 사용합니다.
 
-| 도구   | 시작 위치 | 먼저 볼 문서           | 수정이 필요한 경우                    |
-| ------ | --------- | ---------------------- | ------------------------------------- |
-| Codex  | `codex/`  | `codex/README.md`      | `codex/AGENTS.md`, `codex/.codex/`    |
-| Claude | `claude/` | `claude/README.md`     | `claude/CLAUDE.md`, `claude/.claude/commands/`, `claude/.claude/rules/`, `claude/.claude/agents/`, `claude/.claude/hooks/`, `claude/.claude/settings.json` |
-| Cursor | `cursor/` | `cursor/README.md`     | `cursor/.cursor/commands/`, `cursor/.cursor/rules/`, `cursor/.cursor/agents/`, `cursor/.cursor/hooks/`, `cursor/.cursor/hooks.json` |
+| 도구   | 시작 위치 | 먼저 볼 문서       | 수정이 필요한 경우                                                                                                                                         |
+| ------ | --------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Codex  | `codex/`  | `codex/README.md`  | `codex/AGENTS.md`, `codex/.codex/`                                                                                                                         |
+| Claude | `claude/` | `claude/README.md` | `claude/CLAUDE.md`, `claude/.claude/commands/`, `claude/.claude/rules/`, `claude/.claude/agents/`, `claude/.claude/hooks/`, `claude/.claude/settings.json` |
+| Cursor | `cursor/` | `cursor/README.md` | `cursor/.cursor/commands/`, `cursor/.cursor/rules/`, `cursor/.cursor/agents/`, `cursor/.cursor/hooks/`, `cursor/.cursor/hooks.json`                        |
 
 예를 들어 Codex 규칙을 바꿀 때는 `codex/` 안의 문서와 설정만 수정하고, Claude rule을 바꿀 때는 `claude/` 안의 문서와 설정만 수정합니다. Cursor command를 바꿀 때는 `cursor/` 안의 문서와 설정만 수정합니다.
 
@@ -72,15 +73,15 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 
 ## Codex
 
-| 경로                               | 역할                         |
-| ---------------------------------- | ---------------------------- |
-| `codex/AGENTS.md`                  | 기본 작업 규칙               |
-| `codex/AGENTS.kr.md`               | 한국어 참고본 (사람용)       |
+| 경로                               | 역할                                                                                                                           |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `codex/AGENTS.md`                  | 기본 작업 규칙                                                                                                                 |
+| `codex/AGENTS.kr.md`               | 한국어 참고본 (사람용)                                                                                                         |
 | `codex/.agents/skills/`            | Repo-local skills (`git-commit`, `create-pr`, `create-pr-kr`, `sync-pr`, `review`, `refactor`, `verify`, `workspace-doc-sync`) |
-| `codex/.codex/config.toml`         | 공통 설정 및 fallback 파일명 |
-| `codex/.codex/hooks.json`          | Hook 연결 설정               |
-| `codex/.codex/agents/*.toml`       | 역할별 custom agent 정의     |
-| `codex/.codex/rules/default.rules` | 기본 규칙                    |
+| `codex/.codex/config.toml`         | 공통 설정 및 fallback 파일명                                                                                                   |
+| `codex/.codex/hooks.json`          | Hook 연결 설정                                                                                                                 |
+| `codex/.codex/agents/*.toml`       | 역할별 custom agent 정의                                                                                                       |
+| `codex/.codex/rules/default.rules` | 기본 규칙                                                                                                                      |
 
 **AGENTS.md 로딩 우선순위:** `AGENTS.override.md` → `AGENTS.md` → `config.toml`의 fallback 파일명
 
@@ -90,15 +91,15 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 
 ## Claude
 
-| 경로                         | 역할                 |
-| ---------------------------- | -------------------- |
-| `claude/CLAUDE.md`           | 기본 작업 규칙       |
-| `claude/.claude/commands/*.md` | Claude command 문서 |
-| `claude/.claude/rules/*.md`  | Claude 세부 rule 문서 |
-| `claude/.claude/agents/*.md` | 역할별 Claude subagent 정의 |
+| 경로                           | 역할                               |
+| ------------------------------ | ---------------------------------- |
+| `claude/CLAUDE.md`             | 기본 작업 규칙                     |
+| `claude/.claude/commands/*.md` | Claude command 문서                |
+| `claude/.claude/rules/*.md`    | Claude 세부 rule 문서              |
+| `claude/.claude/agents/*.md`   | 역할별 Claude subagent 정의        |
 | `claude/.claude/settings.json` | Claude 설정 및 lifecycle hook 연결 |
-| `claude/.claude/hooks/*.py`  | lifecycle hook 실행 스크립트 |
-| `claude/README.md`           | Claude 작업 루트 안내 |
+| `claude/.claude/hooks/*.py`    | lifecycle hook 실행 스크립트       |
+| `claude/README.md`             | Claude 작업 루트 안내              |
 
 **CLAUDE.md 로딩:** Claude Code는 프로젝트 지침으로 `CLAUDE.md`를 사용합니다. 이 저장소에서는 Claude 작업 루트를 `claude/`로 분리합니다.
 
@@ -108,12 +109,12 @@ Codex, Claude, Cursor는 각각 설정 파일을 탐색하는 방식이 다릅�
 
 ## Cursor
 
-| 경로                           | 역할                |
-| ------------------------------ | ------------------- |
-| `cursor/.cursor/commands/*.md` | Cursor command 문서 |
-| `cursor/.cursor/rules/*.mdc`   | Cursor rule 문서    |
-| `cursor/.cursor/agents/*.md`   | 역할별 Cursor subagent 정의 |
-| `cursor/.cursor/hooks.json`    | Hook 연결 설정      |
+| 경로                           | 역할                         |
+| ------------------------------ | ---------------------------- |
+| `cursor/.cursor/commands/*.md` | Cursor command 문서          |
+| `cursor/.cursor/rules/*.mdc`   | Cursor rule 문서             |
+| `cursor/.cursor/agents/*.md`   | 역할별 Cursor subagent 정의  |
+| `cursor/.cursor/hooks.json`    | Hook 연결 설정               |
 | `cursor/.cursor/hooks/*.py`    | lifecycle hook 실행 스크립트 |
 
 **Subagents:** Claude subagent 10종과 이름·본문이 같고 frontmatter만 Cursor 스키마(`readonly`)에 맞춥니다.
@@ -143,3 +144,11 @@ python3 scripts/check-parity.py
 - 어느 한 플랫폼에서 항목이 빠지면 `[DRIFT]` 를 출력하고 비정상 종료(exit 1)합니다.
 - `codex/AGENTS.md` 와 `claude/CLAUDE.md` 는 규칙을 파일 링크 대신 본문에 임베드하므로, 규칙별 섹션이 두 파일에 모두 있는지 따로 검사합니다. 여기서 빠져도 `[DRIFT]` 입니다.
 - 한국어판(`*.kr.md`) 누락은 `[WARN]` 으로만 알립니다.
+
+parity 는 파일 존재 여부만 봅니다. 문서 표·frontmatter·훅 배선까지 포함한 체크리스트는 [CONTRIBUTING.md](CONTRIBUTING.md) 에 있습니다.
+
+---
+
+## 다음 작업
+
+앞으로 추가할 항목은 [docs/ROADMAP.md](docs/ROADMAP.md) 에 우선순위별로 정리되어 있습니다.
