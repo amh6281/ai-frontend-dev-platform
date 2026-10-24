@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+
 # Performance Rules
 
 Use these rules when a change affects rendering, data loading, bundle size, or high-frequency interaction. Optimize against a real cost, not a guess.

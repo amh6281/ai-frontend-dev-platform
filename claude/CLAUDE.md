@@ -20,6 +20,8 @@ When Claude starts inside `claude/`, treat this directory as the effective proje
 
 ## Rule Files
 
+Rule files with a `paths` frontmatter load only when Claude reads or edits a matching file. `karpathy-guidelines.md` and `writing-style.md` have no `paths` and always load. The patterns mirror the `globs` in `../cursor/.cursor/rules/`.
+
 - `.claude/rules/accessibility.md` — semantic HTML, names, keyboard, focus, announcements, contrast, and verification.
 - `.claude/rules/code-quality.md` — code quality, workflow, comments, maintenance, and performance rules.
 - `.claude/rules/fsd-architecture.md` — Feature-Sliced Design layer hierarchy, import direction, public API, slice structure, and shared extraction.

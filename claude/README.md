@@ -72,19 +72,21 @@ Claude를 사용할 때는 `claude/`를 작업 루트로 열고 시작합니다.
 `CLAUDE.md`에는 Claude 워크플로우용 기본 작업 규칙과 rule 파일 목록이 포함되어 있습니다.
 세부 규칙은 Claude용 Markdown 파일로 `.claude/rules/`에서 관리합니다.
 
-| 파일 | 내용 |
-| ---- | ---- |
-| `.claude/rules/accessibility.md` | 시맨틱, 키보드, 포커스, 이름, contrast, responsive |
-| `.claude/rules/code-quality.md` | 작업 범위, 검증, 명명, 책임 분리, 중복 제거 |
-| `.claude/rules/fsd-architecture.md` | FSD 레이어 계층, import 방향, public API, 슬라이스 구조, shared 추출 |
-| `.claude/rules/karpathy-guidelines.md` | 단순성, surgical change, 가정 명시, 검증 목표 |
-| `.claude/rules/performance.md` | 측정 우선, 렌더링 비용, 데이터 로딩, 번들·에셋, 체감 성능, 검증 |
-| `.claude/rules/react.md` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
-| `.claude/rules/security.md` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
-| `.claude/rules/styling.md` | 디자인 토큰, 스타일 경계, 레이아웃·간격, 반응형, 모션, 시각 상태 |
-| `.claude/rules/testing.md` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
-| `.claude/rules/typescript.md` | 타입 안정성, union, guard, import type, `satisfies` |
-| `.claude/rules/writing-style.md` | AI 티 문체 제거(영어·한글), 번역투·관용구·완곡·대시·과장 표현 배제 |
+룰 파일의 `paths` frontmatter는 Cursor 룰의 `globs`와 같은 역할입니다. `paths`가 있는 룰은 Claude가 그 패턴에 맞는 파일을 읽거나 수정할 때만 로드되고, 없는 룰은 항상 로드됩니다.
+
+| 파일 | 적용 범위 | 내용 |
+| ---- | --------- | ---- |
+| `.claude/rules/accessibility.md` | `**/*.{ts,tsx,js,jsx,html,css,scss}` | 시맨틱, 키보드, 포커스, 이름, contrast, responsive |
+| `.claude/rules/code-quality.md` | `**/*.{ts,tsx,js,jsx}` | 작업 범위, 검증, 명명, 책임 분리, 중복 제거 |
+| `.claude/rules/fsd-architecture.md` | `**/*.{ts,tsx,js,jsx}` | FSD 레이어 계층, import 방향, public API, 슬라이스 구조, shared 추출 |
+| `.claude/rules/karpathy-guidelines.md` | 항상 | 단순성, surgical change, 가정 명시, 검증 목표 |
+| `.claude/rules/performance.md` | `**/*.{ts,tsx,js,jsx}` | 측정 우선, 렌더링 비용, 데이터 로딩, 번들·에셋, 체감 성능, 검증 |
+| `.claude/rules/react.md` | `**/*.{tsx,jsx}` | 컴포넌트, 상태, effect, 렌더링, 폼, async UI |
+| `.claude/rules/security.md` | `**/*.{ts,tsx,js,jsx}` | secret, untrusted 입력·렌더링, 인증·권한, storage, 로깅, 의존성, 검증 |
+| `.claude/rules/styling.md` | `**/*.{ts,tsx,js,jsx,css,scss}` | 디자인 토큰, 스타일 경계, 레이아웃·간격, 반응형, 모션, 시각 상태 |
+| `.claude/rules/testing.md` | `**/*.{ts,tsx,js,jsx}` | 테스트 의도, 위치, UI 테스트, async 검증, 보고 |
+| `.claude/rules/typescript.md` | `**/*.ts`, `**/*.tsx` | 타입 안정성, union, guard, import type, `satisfies` |
+| `.claude/rules/writing-style.md` | 항상 | AI 티 문체 제거(영어·한글), 번역투·관용구·완곡·대시·과장 표현 배제 |
 
 ---
 

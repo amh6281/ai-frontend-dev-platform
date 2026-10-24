@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx,css,scss}"
+---
+
 # Styling Rules
 
 Use these rules when writing CSS, styling components, or adding visual variants. Take values from the existing design system before introducing new ones.

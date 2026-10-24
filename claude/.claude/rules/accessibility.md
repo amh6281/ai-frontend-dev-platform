@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx,html,css,scss}"
+---
+
 # Accessibility Rules
 
 Accessibility is part of code quality. Apply these rules to user-facing UI changes and mention relevant accessibility verification in the final response.

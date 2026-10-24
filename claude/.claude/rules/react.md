@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{tsx,jsx}"
+---
+
 # React Rules
 
 Use these rules when building, reviewing, or refactoring React components, hooks, pages, and user-facing interactions.

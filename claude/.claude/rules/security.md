@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+
 # Security Rules
 
 Security is part of code quality. Apply these rules to any change that touches secrets, authentication, user input, rendering, storage, network calls, or dependencies, and mention relevant security verification in the final response.

@@ -22,16 +22,27 @@
 
 | # | 파일 | 무엇을 |
 | - | ---- | ------ |
-| 1 | `claude/.claude/rules/<slug>.md` | 룰 본문 |
-| 2 | `cursor/.cursor/rules/<slug>.mdc` | 같은 본문 + frontmatter |
+| 1 | `claude/.claude/rules/<slug>.md` | 룰 본문 + `paths` frontmatter |
+| 2 | `cursor/.cursor/rules/<slug>.mdc` | 같은 본문 + `globs` frontmatter |
 | 3 | `claude/CLAUDE.md` | Rule Files 목록 한 줄 + 본문 임베드 섹션 |
 | 4 | `codex/AGENTS.md` | 본문 임베드 섹션 (CLAUDE.md와 같은 헤딩) |
 | 5 | `codex/AGENTS.kr.md` | 한국어 섹션 |
 | 6 | `scripts/check-parity.py` | `EMBEDDED_RULE_PATTERNS`에 `<slug>` → 헤딩 정규식 |
-| 7 | `claude/README.md` | 폴더 트리 + 적용된 규칙 표 |
+| 7 | `claude/README.md` | 폴더 트리 + 적용된 규칙 표(적용 범위 열 포함) |
 | 8 | `cursor/README.md` | 폴더 트리 + Rules 표 |
 
 `codex/README.md`에는 룰 표가 없다. Codex는 룰을 `AGENTS.md` 본문에 임베드하므로 3~5번이 그 역할을 한다.
+
+**claude frontmatter**
+
+```yaml
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+```
+
+`paths`가 있으면 Claude가 그 패턴에 맞는 파일을 읽거나 수정할 때만 룰이 로드된다. 항상 적용할 룰은 frontmatter를 생략한다(`karpathy-guidelines`, `writing-style`).
 
 **cursor frontmatter**
 
@@ -43,6 +54,8 @@ globs: ['**/*.{ts,tsx,js,jsx}']
 ```
 
 `globs` 대신 `alwaysApply: true`를 쓸 수 있다. 파일 유형과 무관하게 항상 적용할 때만 쓴다(`karpathy-guidelines`, `writing-style`).
+
+Claude `paths`와 Cursor `globs`는 같은 패턴을 쓴다. 한쪽만 바꾸면 두 도구에서 룰이 적용되는 파일이 달라진다.
 
 **6번을 빠뜨리면** parity가 `has no coverage mapping`으로 실패한다. 패턴은 3·4번 임베드 섹션에 실제로 존재하는 헤딩이어야 한다.
 

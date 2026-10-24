@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+
 # Feature-Sliced Design (FSD) Rules
 
 Use these rules when creating, moving, importing, or refactoring any frontend module. Decide which layer a module belongs to before writing it, and keep imports flowing in one direction.

@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+
 # Code Quality Rules
 
 Use these rules when writing, reviewing, or modifying code.

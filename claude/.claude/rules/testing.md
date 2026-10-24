@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.{ts,tsx,js,jsx}"
+---
+
 # Testing Rules
 
 Use these rules when adding tests, fixing bugs, changing stable behavior, or verifying frontend flows.
